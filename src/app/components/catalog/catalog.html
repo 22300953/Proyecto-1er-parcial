@@ -20,25 +20,27 @@
 <header class="header">
 </header>
 
-<div class="filters">
-   <p>Productos en venta: {{ inStockCount() }}</p>
-  <button type="button">Todos</button>
-  <button type="button">Pasteles</button>
-  <button type="button">Gelatinas</button>
-  <button type="button">Galletas</button>
-  <button type="button">Pies</button>
-  <button type="button">Otros</button>
-</div>
+<section class="catalog-layout">
+  <aside class="filters">
+    <p>Productos en venta: {{ inStockCount() }}</p>
+    <button type="button">Todos</button>
+    <button type="button">Pasteles</button>
+    <button type="button">Gelatinas</button>
+    <button type="button">Galletas</button>
+    <button type="button">Pies</button>
+    <button type="button">Otros</button>
+  </aside>
 
-@if (products().length === 0) {
-  <p>Cargando productos (o checa donde esta tu xml).</p>
-} @else {
-  <section class="grid">
-    @for (p of products(); track p.id) {
-      <app-product-card [product]="p" (add)="addToCart($event)"></app-product-card>
+  <div class="catalog-content">
+    @if (products().length === 0) {
+      <p class="empty-state">Cargando productos (o checa donde esta tu xml).</p>
+    } @else {
+      <section class="grid">
+        @for (p of products(); track p.id) {
+          <app-product-card [product]="p" (add)="addToCart($event)"></app-product-card>
+        }
+      </section>
     }
-  </section>
-}
-
-<hr class="sep" />
+  </div>
+</section>
 <app-cart></app-cart>
