@@ -5,6 +5,8 @@ import { CartService } from '../../services/cart.service';
 import { ProductCardComponent } from '../product/product';
 import { CartComponent } from '../cart/cart';
 
+type FilterKey = 'todos' | 'pasteles' | 'gelatinas' | 'galletas' | 'pays' | 'otros';
+
 @Component({
   selector: 'app-catalog',
   standalone: true,
@@ -14,7 +16,18 @@ import { CartComponent } from '../cart/cart';
 })
 export class CatalogComponent {
   products = signal<Product[]>([]);
+  selectedFilter = signal<FilterKey>('todos');
   inStockCount = computed(() => this.products().filter(p => p.inStock).length);
+  filteredProducts = computed(() => {
+    const filter = this.selectedFilter();
+    const list = this.products();
+
+    if (filter === 'todos') {
+      return list;
+    }
+
+    return list.filter(product => this.matchesFilter(product.category, filter));
+  });
 
   constructor(
     private productsService: ProductsService,
@@ -44,6 +57,31 @@ export class CatalogComponent {
 
   logOut() {
     console.info('Logout action is not implemented yet.');
+  }
+
+  setFilter(filter: FilterKey) {
+    this.selectedFilter.set(filter);
+  }
+
+  isSelectedFilter(filter: FilterKey): boolean {
+    return this.selectedFilter() === filter;
+  }
+
+  private normalizeCategory(value: string): string {
+    return value.trim().toLowerCase();
+  }
+
+  private matchesFilter(category: string, filter: Exclude<FilterKey, 'todos'>): boolean {
+    const normalizedCategory = this.normalizeCategory(category);
+    const aliases: Record<Exclude<FilterKey, 'todos'>, string[]> = {
+      pasteles: ['pastel', 'pasteles'],
+      gelatinas: ['gelatina', 'gelatinas'],
+      galletas: ['galleta', 'galletas'],
+      pays: ['pie', 'pies', 'pay', 'payes', 'tarta', 'tartas'],
+      otros: ['otro', 'otros'],
+    };
+
+    return aliases[filter].includes(normalizedCategory);
   }
 
 }

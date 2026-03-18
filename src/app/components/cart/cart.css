@@ -1,104 +1,33 @@
-.cart-backdrop {
-	position: fixed;
-	inset: 0;
-	background: rgba(15, 23, 42, 0.28);
-	z-index: 40;
+.cart-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f9f5f0;
 }
 
-.cart-menu {
-	position: fixed;
-	top: 78px;
-	right: 16px;
-	width: min(380px, calc(100vw - 32px));
-	max-height: calc(100vh - 92px);
-	overflow: auto;
-	border: 1px solid #e5e7eb;
-	border-radius: 14px;
-	padding: 14px;
-	background: #fff;
-	box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
-	transform: translateY(-8px) scale(0.98);
-	opacity: 0;
-	pointer-events: none;
-	transition: transform 0.2s ease, opacity 0.2s ease;
-	z-index: 50;
+.cart-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.cart-menu.open {
-	transform: translateY(0) scale(1);
-	opacity: 1;
-	pointer-events: auto;
+.cart-form input,
+.cart-form textarea,
+.cart-form select {
+  margin-top: 4px;
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.cart-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 8px;
+.cart-form textarea {
+  resize: vertical;
 }
-
-.cart-header h2 {
-	margin: 0;
-	font-size: 18px;
-}
-
-.close-cart {
-	border: 0;
-	border-radius: 8px;
-	width: 30px;
-	height: 30px;
-	cursor: pointer;
-}
-
-.empty {
-	margin: 0;
-	color: #6b7280;
-}
-
-.item {
-	display: grid;
-	grid-template-columns: 58px 1fr auto;
-	gap: 10px;
-	align-items: center;
-	border: 1px solid #e5e7eb;
-	border-radius: 10px;
-	padding: 10px;
-	margin-top: 10px;
-}
-
-.item img {
-	width: 58px;
-	height: 58px;
-	border-radius: 8px;
-	object-fit: cover;
-}
-
-.item p {
-	margin: 3px 0;
-}
-
-.total {
-	margin-top: 12px;
-	font-weight: 700;
-}
-
-.actions {
-	margin-top: 12px;
-	display: flex;
-	gap: 8px;
-	flex-wrap: wrap;
-}
-
-.btn {
-	border: 0;
-	border-radius: 10px;
-	padding: 10px 12px;
-	cursor: pointer;
-	background: #5a2d0c;
-	color: #fff;
-}
-
-.btn.danger {
-	background: #ef4444;
-}
-

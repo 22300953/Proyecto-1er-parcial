@@ -5,15 +5,15 @@
 <aside id="panel-cart" class="cart-menu" [class.open]="isOpen()" [attr.aria-hidden]="!isOpen()">
   <div class="cart-header">
     <h2>Carrito</h2>
-    <button type="button" class="close-cart" (click)="closeCart()" aria-label="Cerrar carrito">
-      X
-    </button>
+    <button type="button" class="close-cart" (click)="closeCart()">X</button>
   </div>
 
+  <!-- Carrito vacío -->
   @if (items().length === 0) {
     <p class="empty">No hay productos en tu carrito.</p>
   }
 
+  <!-- Lista de productos -->
   @for (item of items(); track item.id) {
     <div class="item">
       <img [src]="item.imageUrl" [alt]="item.name" />
@@ -26,10 +26,49 @@
     </div>
   }
 
+  <!-- Formulario sin ngModel -->
+  <div class="cart-form">
+    <label>
+      Nombre:
+      <input type="text" [value]="customer.name" (input)="customer.name = $event.target.value" />
+    </label>
+
+    <label>
+      Teléfono:
+      <input type="text" [value]="customer.phone" (input)="customer.phone = $event.target.value" />
+    </label>
+
+    <label>
+      Nota:
+      <textarea (input)="customer.note = $event.target.value">{{ customer.note }}</textarea>
+    </label>
+
+    <label>
+      Tipo de entrega:
+      <select (change)="customer.deliveryType = $event.target.value">
+        <option value="store">Recoger en sucursal</option>
+        <option value="home">Domicilio</option>
+      </select>
+    </label>
+
+    <label *if="customer.deliveryType === 'home'">
+      Dirección:
+      <input type="text" [value]="customer.address" (input)="customer.address = $event.target.value" />
+    </label>
+
+    <label>
+      Tipo de pago:
+      <select (change)="customer.paymentType = $event.target.value">
+        <option value="cash">Efectivo</option>
+        <option value="card">Tarjeta</option>
+      </select>
+    </label>
+  </div>
+
   <p class="total">TOTAL: ${{ total().toFixed(2) }}</p>
 
   <div class="actions">
     <button class="btn danger" type="button" (click)="clearCart()">Vaciar el carrito :c</button>
-    <button class="btn" type="button" (click)="exportXml()">Hacer pedido</button>
+    <button class="btn" type="button" (click)="exportOrder()">Hacer pedido</button>
   </div>
 </aside>

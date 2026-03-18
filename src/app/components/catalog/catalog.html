@@ -23,20 +23,22 @@
 <section class="catalog-layout">
   <aside class="filters">
     <p>Productos en venta: {{ inStockCount() }}</p>
-    <button type="button">Todos</button>
-    <button type="button">Pasteles</button>
-    <button type="button">Gelatinas</button>
-    <button type="button">Galletas</button>
-    <button type="button">Pies</button>
-    <button type="button">Otros</button>
+    <button type="button" (click)="setFilter('todos')" [class.is-active]="isSelectedFilter('todos')">Todos</button>
+    <button type="button" (click)="setFilter('pasteles')" [class.is-active]="isSelectedFilter('pasteles')">Pasteles</button>
+    <button type="button" (click)="setFilter('gelatinas')" [class.is-active]="isSelectedFilter('gelatinas')">Gelatinas</button>
+    <button type="button" (click)="setFilter('galletas')" [class.is-active]="isSelectedFilter('galletas')">Galletas</button>
+    <button type="button" (click)="setFilter('pays')" [class.is-active]="isSelectedFilter('pays')">Pays</button>
+    <button type="button" (click)="setFilter('otros')" [class.is-active]="isSelectedFilter('otros')">Otros</button>
   </aside>
 
   <div class="catalog-content">
     @if (products().length === 0) {
       <p class="empty-state">Cargando productos (o checa donde esta tu xml).</p>
+    } @else if (filteredProducts().length === 0) {
+      <p class="empty-state">No hay productos para esta categoria.</p>
     } @else {
       <section class="grid">
-        @for (p of products(); track p.id) {
+        @for (p of filteredProducts(); track p.id) {
           <app-product-card [product]="p" (add)="addToCart($event)"></app-product-card>
         }
       </section>

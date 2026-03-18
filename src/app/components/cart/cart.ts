@@ -36,5 +36,6 @@ export class CartComponent {
   exportXml() {
     this.cartService.exportarXML();
   }
+  
 }
 

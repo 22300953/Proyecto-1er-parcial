@@ -163,6 +163,12 @@
   outline-offset: 1px;
 }
 
+.filters button.is-active {
+  background: linear-gradient(180deg, #f3d2a2 0%, #e3b97e 100%);
+  border-color: #8c5b2d;
+  box-shadow: 0 3px 10px rgba(61, 37, 0, 0.16);
+}
+
 .empty-state {
   margin: 4px 0 0;
 }
