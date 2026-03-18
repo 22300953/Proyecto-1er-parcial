@@ -11,7 +11,7 @@
       [attr.aria-expanded]="cartIsOpen()"
       aria-controls="panel-cart"
     >
-      Cart ({{ countItems() }})
+      Carrito ({{ countItems() }})
     </button>
     <button type="button" (click)="logOut()">Cerrar sesion</button>
   </div>
@@ -31,7 +31,7 @@
 </div>
 
 @if (products().length === 0) {
-  <p>Carg (o checa donde esta tu xml).</p>
+  <p>Cargando productos (o checa donde esta tu xml).</p>
 } @else {
   <section class="grid">
     @for (p of products(); track p.id) {
