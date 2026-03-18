@@ -1,11 +1,11 @@
 <section class="cart">
-  <h2 class="title">Carrito</h2>
+  <h2 class="title">cart</h2>
 
-  @if (carrito().length === 0) {
-    <p class="empty">Tu carrito está vacío.</p>
+  @if (cart().length === 0) {
+    <p class="empty">Tu cart está vacío.</p>
   } @else {
     <ul class="list">
-      @for (producto of carrito(); track producto.id) {
+      @for (producto of cart(); track producto.id) {
         <li class="item">
           <span class="line">
             {{ producto.name }} - {{ producto.price | currency:'MXN' }}
@@ -23,7 +23,7 @@
     </div>
 
     <div class="actions">
-      <button class="btn" (click)="vaciar()">Vaciar carrito</button>
+      <button class="btn" (click)="vaciar()">Vaciar cart</button>
       <button class="btn purple" (click)="exportarXML()">Exportar Recibo XML</button>
     </div>
   }
