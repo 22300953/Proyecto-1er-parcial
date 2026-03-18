@@ -29,4 +29,11 @@ export class CatalogComponent {
   agregar(product: Product) {
     this.cartService.agregar(product);
   }
+
+  toggleCart() {}
+  openedCart() {}
+  countItems() {}
+  logOut() {}
+
 }
+

@@ -1,44 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <products>
-  
   <product>
     <id>1</id>
-    <name>Isopodo Rubber Ducky</name>
-    <price>599</price>
-    <imageUrl>https://pbs.twimg.com/media/EnbzLJdW4AECdgd.jpg</imageUrl>
-    <category>Lil guy</category>
-    <description>That's just a baby, my baby boi</description>
-    <inStock>true</inStock>
+    <nombre>Pastel de Chocolate Supremo</nombre>
+    <tipo>Pastel</tipo>
+    <porciones>12 porciones</porciones>
+    <precio>420</precio>
+    <imagen>pastel1.jpeg</imagen>
   </product>
-
   <product>
     <id>2</id>
-    <name>Peluche de isopodo</name>
-    <price>1299</price>
-    <imageUrl>https://i.etsystatic.com/5384056/r/il/628cbe/5262464607/il_570xN.5262464607_eaoq.jpg</imageUrl>
-    <category>Peluche</category>
-    <description>Peluche de isopodo, lo mejor en esta tierra</description>
-    <inStock>true</inStock>
+    <nombre>Pastel de Fresas con Crema</nombre>
+    <tipo>Pastel</tipo>
+    <porciones>10 porciones</porciones>
+    <precio>395</precio>
+    <imagen>pastel2.jpeg</imagen>
   </product>
-
   <product>
     <id>3</id>
-    <name>Pulpo paraguas</name>
-    <price>799</price>
-    <imageUrl>https://scubaversity.co.za/assets/blog/Dumbo%20octopus.jpg</imageUrl>
-    <category>Lil guy</category>
-    <description>That's just a baby, my baby boi</description>
-    <inStock>false</inStock>
+    <nombre>Pastel Tres Leches</nombre>
+    <tipo>Pastel</tipo>
+    <porciones>14 porciones</porciones>
+    <precio>450</precio>
+    <imagen>pastel3.jpeg</imagen>
   </product>
-
   <product>
     <id>4</id>
-    <name>Cangrejo con un cuchillo</name>
-    <price>7999</price>
-    <imageUrl>https://assets.iflscience.com/assets/articleNo/46741/aImg/23284/1521728554-cover-image-l.png</imageUrl>
-    <category>Batalla</category>
-    <description>Viajero detente, la ruta es peligrosa, toma este compañero para el camino</description>
-    <inStock>true</inStock>
+    <nombre>Chocoflan Artesanal</nombre>
+    <tipo>Pastel</tipo>
+    <porciones>8 porciones</porciones>
+    <precio>320</precio>
+    <imagen>chocoflan.webp</imagen>
   </product>
-
+  <product>
+    <id>5</id>
+    <nombre>Gelatina de Mango</nombre>
+    <tipo>Gelatinas</tipo>
+    <porciones>8 porciones</porciones>
+    <precio>180</precio>
+    <imagen>gelatinamango.webp</imagen>
+  </product>
+  <product>
+    <id>6</id>
+    <nombre>Pay de Frambuesa</nombre>
+    <tipo>Tarta</tipo>
+    <porciones>8 porciones</porciones>
+    <precio>260</precio>
+    <imagen>paydeframbuesa.webp</imagen>
+  </product>
+  <product>
+    <id>7</id>
+    <nombre>Pay de Fruta</nombre>
+    <tipo>Tarta</tipo>
+    <porciones>8 porciones</porciones>
+    <precio>250</precio>
+    <imagen>paydefruta.webp</imagen>
+  </product>
+  <product>
+    <id>8</id>
+    <nombre>Galletas Macarrons</nombre>
+    <tipo>Galletas</tipo>
+    <porciones>6 piezas</porciones>
+    <precio>150</precio>
+    <imagen>macarrons.webp</imagen>
+  </product>
+  <product>
+    <id>9</id>
+    <nombre>Rol de Canela Premium</nombre>
+    <tipo>Otro</tipo>
+    <porciones>4 piezas</porciones>
+    <precio>140</precio>
+    <imagen>roldecanela.webp</imagen>
+  </product>
+  <product>
+    <id>10</id>
+    <nombre>Pan Artesanal Dulce</nombre>
+    <tipo>Otro</tipo>
+    <porciones>6 piezas</porciones>
+    <precio>110</precio>
+    <imagen>pan.png</imagen>
+  </product>
 </products>
