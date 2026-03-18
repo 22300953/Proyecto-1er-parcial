@@ -2,82 +2,82 @@
 <products>
   <product>
     <id>1</id>
-    <nombre>Pastel de Chocolate Supremo</nombre>
-    <tipo>Pastel</tipo>
-    <porciones>12 porciones</porciones>
-    <precio>420</precio>
-    <imagen>pastel1.jpeg</imagen>
+    <name>Pastel de Chocolate Supremo</name>
+    <category>Pastel</category>
+    <portions>12 portions</portions>
+    <price>420</price>
+    <image>pastel1.jpeg</image>
   </product>
   <product>
     <id>2</id>
-    <nombre>Pastel de Fresas con Crema</nombre>
-    <tipo>Pastel</tipo>
-    <porciones>10 porciones</porciones>
-    <precio>395</precio>
-    <imagen>pastel2.jpeg</imagen>
+    <name>Pastel de Fresas con Crema</name>
+    <category>Pastel</category>
+    <portions>10 portions</portions>
+    <price>395</price>
+    <image>pastel2.jpeg</image>
   </product>
   <product>
     <id>3</id>
-    <nombre>Pastel Tres Leches</nombre>
-    <tipo>Pastel</tipo>
-    <porciones>14 porciones</porciones>
-    <precio>450</precio>
-    <imagen>pastel3.jpeg</imagen>
+    <name>Pastel Tres Leches</name>
+    <category>Pastel</category>
+    <portions>14 portions</portions>
+    <price>450</price>
+    <image>pastel3.jpeg</image>
   </product>
   <product>
     <id>4</id>
-    <nombre>Chocoflan Artesanal</nombre>
-    <tipo>Pastel</tipo>
-    <porciones>8 porciones</porciones>
-    <precio>320</precio>
-    <imagen>chocoflan.webp</imagen>
+    <name>Chocoflan Artesanal</name>
+    <category>Pastel</category>
+    <portions>8 portions</portions>
+    <price>320</price>
+    <image>chocoflan.webp</image>
   </product>
   <product>
     <id>5</id>
-    <nombre>Gelatina de Mango</nombre>
-    <tipo>Gelatinas</tipo>
-    <porciones>8 porciones</porciones>
-    <precio>180</precio>
-    <imagen>gelatinamango.webp</imagen>
+    <name>Gelatina de Mango</name>
+    <category>Gelatinas</category>
+    <portions>8 portions</portions>
+    <price>180</price>
+    <image>gelatinamango.webp</image>
   </product>
   <product>
     <id>6</id>
-    <nombre>Pay de Frambuesa</nombre>
-    <tipo>Tarta</tipo>
-    <porciones>8 porciones</porciones>
-    <precio>260</precio>
-    <imagen>paydeframbuesa.webp</imagen>
+    <name>Pay de Frambuesa</name>
+    <category>Tarta</category>
+    <portions>8 portions</portions>
+    <price>260</price>
+    <image>paydeframbuesa.webp</image>
   </product>
   <product>
     <id>7</id>
-    <nombre>Pay de Fruta</nombre>
-    <tipo>Tarta</tipo>
-    <porciones>8 porciones</porciones>
-    <precio>250</precio>
-    <imagen>paydefruta.webp</imagen>
+    <name>Pay de Fruta</name>
+    <category>Tarta</category>
+    <portions>8 portions</portions>
+    <price>250</price>
+    <image>paydefruta.webp</image>
   </product>
   <product>
     <id>8</id>
-    <nombre>Galletas Macarrons</nombre>
-    <tipo>Galletas</tipo>
-    <porciones>6 piezas</porciones>
-    <precio>150</precio>
-    <imagen>macarrons.webp</imagen>
+    <name>Galletas Macarrons</name>
+    <category>Galletas</category>
+    <portions>6 piezas</portions>
+    <price>150</price>
+    <image>macarrons.webp</image>
   </product>
   <product>
     <id>9</id>
-    <nombre>Rol de Canela Premium</nombre>
-    <tipo>Otro</tipo>
-    <porciones>4 piezas</porciones>
-    <precio>140</precio>
-    <imagen>roldecanela.webp</imagen>
+    <name>Rol de Canela Premium</name>
+    <category>Otro</category>
+    <portions>4 piezas</portions>
+    <price>140</price>
+    <image>roldecanela.webp</image>
   </product>
   <product>
     <id>10</id>
-    <nombre>Pan Artesanal Dulce</nombre>
-    <tipo>Otro</tipo>
-    <porciones>6 piezas</porciones>
-    <precio>110</precio>
-    <imagen>pan.png</imagen>
+    <name>Pan Artesanal Dulce</name>
+    <category>Otro</category>
+    <portions>6 piezas</portions>
+    <price>110</price>
+    <image>pan.png</image>
   </product>
 </products>
