@@ -4,14 +4,14 @@
 
 <aside id="panel-cart" class="cart-menu" [class.open]="isOpen()" [attr.aria-hidden]="!isOpen()">
   <div class="cart-header">
-    <h2>Cart</h2>
+    <h2>Carrito</h2>
     <button type="button" class="close-cart" (click)="closeCart()" aria-label="Cerrar carrito">
       X
     </button>
   </div>
 
   @if (items().length === 0) {
-    <p class="empty">No products in your cart yet.</p>
+    <p class="empty">No hay productos en tu carrito.</p>
   }
 
   @for (item of items(); track item.id) {
@@ -29,7 +29,7 @@
   <p class="total">TOTAL: ${{ total().toFixed(2) }}</p>
 
   <div class="actions">
-    <button class="btn danger" type="button" (click)="clearCart()">Clear cart</button>
+    <button class="btn danger" type="button" (click)="clearCart()">Vaciar el carrito :c</button>
     <button class="btn" type="button" (click)="exportXml()">Hacer pedido</button>
   </div>
 </aside>

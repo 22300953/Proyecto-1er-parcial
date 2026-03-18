@@ -13,26 +13,25 @@
     >
       Cart ({{ countItems() }})
     </button>
-    <button type="button" (click)="logOut()">Sign out</button>
+    <button type="button" (click)="logOut()">Cerrar sesion</button>
   </div>
 </header>
 
 <header class="header">
-  <h1>Catalog</h1>
-  <p>Products in stock: {{ inStockCount() }}</p>
 </header>
 
 <div class="filters">
-  <button type="button">All</button>
-  <button type="button">Cakes</button>
-  <button type="button">Gelatins</button>
-  <button type="button">Cookies</button>
+   <p>Productos en venta: {{ inStockCount() }}</p>
+  <button type="button">Todos</button>
+  <button type="button">Pasteles</button>
+  <button type="button">Gelatinas</button>
+  <button type="button">Galletas</button>
   <button type="button">Pies</button>
-  <button type="button">Other</button>
+  <button type="button">Otros</button>
 </div>
 
 @if (products().length === 0) {
-  <p>Loading products (or check the XML path).</p>
+  <p>Carg (o checa donde esta tu xml).</p>
 } @else {
   <section class="grid">
     @for (p of products(); track p.id) {

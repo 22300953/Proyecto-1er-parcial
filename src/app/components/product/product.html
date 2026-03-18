@@ -11,7 +11,7 @@
     <p class="desc">{{ product.description }}</p>
 
     <p class="stock" [class.out]="!product.inStock">
-      @if (product.inStock) { En stock } @else { Agotado }
+      @if (product.inStock) { Disponibles } @else { Agotado }
     </p>
 
     <button class="btn" [disabled]="!product.inStock" (click)="onAdd()">
