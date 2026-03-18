@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+  
+  <product>
+    <id>1</id>
+    <name>Isopodo Rubber Ducky</name>
+    <price>599</price>
+    <imageUrl>https://pbs.twimg.com/media/EnbzLJdW4AECdgd.jpg</imageUrl>
+    <category>Lil guy</category>
+    <description>That's just a baby, my baby boi</description>
+    <inStock>true</inStock>
+  </product>
+
+  <product>
+    <id>2</id>
+    <name>Peluche de isopodo</name>
+    <price>1299</price>
+    <imageUrl>https://i.etsystatic.com/5384056/r/il/628cbe/5262464607/il_570xN.5262464607_eaoq.jpg</imageUrl>
+    <category>Peluche</category>
+    <description>Peluche de isopodo, lo mejor en esta tierra</description>
+    <inStock>true</inStock>
+  </product>
+
+  <product>
+    <id>3</id>
+    <name>Pulpo paraguas</name>
+    <price>799</price>
+    <imageUrl>https://scubaversity.co.za/assets/blog/Dumbo%20octopus.jpg</imageUrl>
+    <category>Lil guy</category>
+    <description>That's just a baby, my baby boi</description>
+    <inStock>false</inStock>
+  </product>
+
+  <product>
+    <id>4</id>
+    <name>Cangrejo con un cuchillo</name>
+    <price>7999</price>
+    <imageUrl>https://assets.iflscience.com/assets/articleNo/46741/aImg/23284/1521728554-cover-image-l.png</imageUrl>
+    <category>Batalla</category>
+    <description>Viajero detente, la ruta es peligrosa, toma este compañero para el camino</description>
+    <inStock>true</inStock>
+  </product>
+
+</products>
