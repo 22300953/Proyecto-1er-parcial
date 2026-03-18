@@ -1,7 +1,7 @@
 import { Component, computed } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { CarritoService } from '../../services/carrito.service';
-import { Product } from '../../models/producto.model';
+import { CarritoService } from '../../services/cart.service';
+import { Product } from '../../models/product.model';
 import { Signal } from '@angular/core';
 
 @Component({
