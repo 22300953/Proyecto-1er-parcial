@@ -1,33 +1,39 @@
-import { Component, computed } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 import { Signal } from '@angular/core';
 
 @Component({
   selector: 'app-cart',
-  standalone: true,
-  imports: [CurrencyPipe],
   templateUrl: './cart.html',
   styleUrls: ['./cart.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartComponent {
-  cart: Signal<Product[]>;
+  private cartService = inject(CartService);
+
+  items: Signal<Product[]>;
+  isOpen: Signal<boolean>;
   total = computed(() => this.cartService.total());
 
-  constructor(private cartService: CartService) {
-    this.cart = this.cartService.products;
+  constructor() {
+    this.items = this.cartService.products;
+    this.isOpen = this.cartService.isCartOpen;
   }
 
-  quitar(id: number) {
+  removeItem(id: number) {
     this.cartService.quitar(id);
   }
 
-  vaciar() {
+  clearCart() {
     this.cartService.vaciar();
   }
 
-  exportarXML() {
+  closeCart() {
+    this.cartService.closeCart();
+  }
+
+  exportXml() {
     this.cartService.exportarXML();
   }
 }

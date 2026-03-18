@@ -8,29 +8,38 @@
       type="button"
       class="carrito-toggle"
       (click)="toggleCart()"
-      [attr.aria-expanded]="openedCart()"
-      aria-controls="panel-carrito"
+      [attr.aria-expanded]="cartIsOpen()"
+      aria-controls="panel-cart"
     >
-      Carrito ({{ countItems() }})
+      Cart ({{ countItems() }})
     </button>
-    <button type="button" (click)="logOut()">Cerrar sesion</button>
+    <button type="button" (click)="logOut()">Sign out</button>
   </div>
 </header>
 
 <header class="header">
-  <h1>Catálogo</h1>
-  <p>products en stock: {{ inStockCount() }}</p>
+  <h1>Catalog</h1>
+  <p>Products in stock: {{ inStockCount() }}</p>
 </header>
 
+<div class="filters">
+  <button type="button">All</button>
+  <button type="button">Cakes</button>
+  <button type="button">Gelatins</button>
+  <button type="button">Cookies</button>
+  <button type="button">Pies</button>
+  <button type="button">Other</button>
+</div>
+
 @if (products().length === 0) {
-  <p>Cargando products (o revisa la ruta del XML).</p>
+  <p>Loading products (or check the XML path).</p>
 } @else {
   <section class="grid">
     @for (p of products(); track p.id) {
-      <app-product-card [product]="p" (add)="agregar($event)"></app-product-card>
+      <app-product-card [product]="p" (add)="addToCart($event)"></app-product-card>
     }
   </section>
 }
 
-<hr class="sep"/>
+<hr class="sep" />
 <app-cart></app-cart>

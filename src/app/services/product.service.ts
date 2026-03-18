@@ -29,11 +29,29 @@ export class ProductsService {
       id: this.getNumber(node, 'id'),
       name: this.getText(node, 'name'),
       price: this.getNumber(node, 'price'),
-      imageUrl: this.getText(node, 'imageUrl'),
+      imageUrl: this.normalizeImageUrl(this.getText(node, 'imageUrl') || this.getText(node, 'image')),
       category: this.getText(node, 'category'),
-      description: this.getText(node, 'description'),
-      inStock: this.getBoolean(node, 'inStock'),
+      description: this.getText(node, 'description') || this.getText(node, 'portions'),
+      inStock: this.hasTag(node, 'inStock') ? this.getBoolean(node, 'inStock') : true,
     }));
+  }
+
+  private normalizeImageUrl(imageValue: string): string {
+    const image = imageValue.trim();
+
+    if (!image) {
+      return '/assets/logo.png';
+    }
+
+    if (/^https?:\/\//i.test(image) || image.startsWith('/')) {
+      return image;
+    }
+
+    return `/assets/${image}`;
+  }
+
+  private hasTag(parent: Element, tag: string): boolean {
+    return parent.getElementsByTagName(tag).length > 0;
   }
 
   private getText(parent: Element, tag: string): string {

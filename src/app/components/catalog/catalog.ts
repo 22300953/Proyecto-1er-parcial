@@ -26,14 +26,25 @@ export class CatalogComponent {
     });
   }
 
-  agregar(product: Product) {
+  addToCart(product: Product) {
     this.cartService.agregar(product);
   }
 
-  toggleCart() {}
-  openedCart() {}
-  countItems() {}
-  logOut() {}
+  toggleCart() {
+    this.cartService.toggleCart();
+  }
+
+  cartIsOpen() {
+    return this.cartService.isCartOpen();
+  }
+
+  countItems() {
+    return this.cartService.countItems();
+  }
+
+  logOut() {
+    console.info('Logout action is not implemented yet.');
+  }
 
 }
 

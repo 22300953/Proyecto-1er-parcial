@@ -3,11 +3,13 @@ import { Product } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  // Lista reactiva del cart
+  // Reactive list of cart products
   private productsSignal = signal<Product[]>([]);
+  private isCartOpenSignal = signal(false);
 
-  // Exponer como readonly
+  // Expose readonly signals
   products = this.productsSignal.asReadonly();
+  isCartOpen = this.isCartOpenSignal.asReadonly();
 
   agregar(product: Product) {
     this.productsSignal.update(lista => [...lista, product]);
@@ -19,6 +21,18 @@ export class CartService {
 
   vaciar() {
     this.productsSignal.set([]);
+  }
+
+  toggleCart() {
+    this.isCartOpenSignal.update(isOpen => !isOpen);
+  }
+
+  closeCart() {
+    this.isCartOpenSignal.set(false);
+  }
+
+  countItems(): number {
+    return this.productsSignal().length;
   }
 
   total(): number {

@@ -1,31 +1,35 @@
-<section class="cart">
-  <h2 class="title">cart</h2>
+@if (isOpen()) {
+  <div class="cart-backdrop" (click)="closeCart()" aria-hidden="true"></div>
+}
 
-  @if (cart().length === 0) {
-    <p class="empty">Tu cart está vacío.</p>
-  } @else {
-    <ul class="list">
-      @for (product of cart(); track product.id) {
-        <li class="item">
-          <span class="line">
-            {{ product.name }} - {{ product.price | currency:'MXN' }}
-          </span>
+<aside id="panel-cart" class="cart-menu" [class.open]="isOpen()" [attr.aria-hidden]="!isOpen()">
+  <div class="cart-header">
+    <h2>Cart</h2>
+    <button type="button" class="close-cart" (click)="closeCart()" aria-label="Cerrar carrito">
+      X
+    </button>
+  </div>
 
-          <button class="btn danger" (click)="quitar(product.id)">
-            Quitar
-          </button>
-        </li>
-      }
-    </ul>
+  @if (items().length === 0) {
+    <p class="empty">No products in your cart yet.</p>
+  }
 
-    <div class="total">
-      Total: {{ total() | currency:'MXN' }}
-    </div>
-
-    <div class="actions">
-      <button class="btn" (click)="vaciar()">Vaciar cart</button>
-      <button class="btn purple" (click)="exportarXML()">Exportar Recibo XML</button>
+  @for (item of items(); track item.id) {
+    <div class="item">
+      <img [src]="item.imageUrl" [alt]="item.name" />
+      <div>
+        <strong>{{ item.name }}</strong>
+        <p>{{ item.category }}</p>
+        <p>${{ item.price.toFixed(2) }}</p>
+      </div>
+      <button type="button" (click)="removeItem(item.id)">X</button>
     </div>
   }
-</section>
 
+  <p class="total">TOTAL: ${{ total().toFixed(2) }}</p>
+
+  <div class="actions">
+    <button class="btn danger" type="button" (click)="clearCart()">Clear cart</button>
+    <button class="btn" type="button" (click)="exportXml()">Hacer pedido</button>
+  </div>
+</aside>
