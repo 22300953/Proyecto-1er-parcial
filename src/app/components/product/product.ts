@@ -1,12 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../models/product.model.ts';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-card',
-  standalone:true,
+  standalone: true,
   imports: [],
   templateUrl: './product.html',
-  styleUrl: './product.css',
+  styleUrls: ['./product.css'],
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;

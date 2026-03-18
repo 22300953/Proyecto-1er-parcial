@@ -1,10 +1,10 @@
 <header class="header">
   <h1>Catálogo</h1>
-  <p>Productos en stock: {{ inStockCount() }}</p>
+  <p>products en stock: {{ inStockCount() }}</p>
 </header>
 
 @if (products().length === 0) {
-  <p>Cargando productos (o revisa la ruta del XML).</p>
+  <p>Cargando products (o revisa la ruta del XML).</p>
 } @else {
   <section class="grid">
     @for (p of products(); track p.id) {

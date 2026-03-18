@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map, Observable} from "rxjs"
 import { Product } from "../models/product.model";
-import { from } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
@@ -10,7 +9,7 @@ export class ProductsService {
 
   getAll(): Observable<Product[]> {
     // Pedimos el XML como texto plano
-    return this.http.get('/products.xml', { responseType: 'text' }).pipe(
+    return this.http.get('/productos.xml', { responseType: 'text' }).pipe(
       map((xmlText) => this.parseProductsXml(xmlText))
     );
   }

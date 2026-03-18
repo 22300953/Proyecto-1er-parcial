@@ -1,6 +1,6 @@
 import { Component, computed } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { cartService } from '../../services/cart.service';
+import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 import { Signal } from '@angular/core';
 
@@ -11,12 +11,12 @@ import { Signal } from '@angular/core';
   templateUrl: './cart.html',
   styleUrls: ['./cart.css'],
 })
-export class cartComponent {
+export class CartComponent {
   cart: Signal<Product[]>;
   total = computed(() => this.cartService.total());
 
-  constructor(private cartService: cartService) {
-    this.cart = this.cartService.productos;
+  constructor(private cartService: CartService) {
+    this.cart = this.cartService.products;
   }
 
   quitar(id: number) {

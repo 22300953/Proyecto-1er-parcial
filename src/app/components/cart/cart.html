@@ -5,13 +5,13 @@
     <p class="empty">Tu cart está vacío.</p>
   } @else {
     <ul class="list">
-      @for (producto of cart(); track producto.id) {
+      @for (product of cart(); track product.id) {
         <li class="item">
           <span class="line">
-            {{ producto.name }} - {{ producto.price | currency:'MXN' }}
+            {{ product.name }} - {{ product.price | currency:'MXN' }}
           </span>
 
-          <button class="btn danger" (click)="quitar(producto.id)">
+          <button class="btn danger" (click)="quitar(product.id)">
             Quitar
           </button>
         </li>
