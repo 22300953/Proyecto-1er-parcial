@@ -56,7 +56,7 @@ export class CatalogComponent {
   }
 
   logOut() {
-    console.info('Logout action is not implemented yet.');
+    console.info('La acción de cerrar sesión todavía no está implementada.');
   }
 
   setFilter(filter: FilterKey) {

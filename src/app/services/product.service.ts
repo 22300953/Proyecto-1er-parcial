@@ -30,10 +30,42 @@ export class ProductsService {
       name: this.getText(node, 'name'),
       price: this.getNumber(node, 'price'),
       imageUrl: this.normalizeImageUrl(this.getText(node, 'imageUrl') || this.getText(node, 'image')),
-      category: this.getText(node, 'category'),
-      description: this.getText(node, 'description') || this.getText(node, 'portions'),
+      category: this.normalizeCategory(this.getText(node, 'category')),
+      description: this.normalizeDescription(this.getText(node, 'description') || this.getText(node, 'portions')),
       inStock: this.hasTag(node, 'inStock') ? this.getBoolean(node, 'inStock') : true,
     }));
+  }
+
+  private normalizeCategory(value: string): string {
+    const normalized = value.trim().toLowerCase();
+
+    if (normalized === 'gelatinas') {
+      return 'Gelatina';
+    }
+
+    if (normalized === 'galletas') {
+      return 'Galleta';
+    }
+
+    if (normalized === 'pasteles') {
+      return 'Pastel';
+    }
+
+    if (normalized === 'tartas') {
+      return 'Tarta';
+    }
+
+    if (normalized === 'otros') {
+      return 'Otro';
+    }
+
+    return value;
+  }
+
+  private normalizeDescription(value: string): string {
+    return value
+      .replace(/\b(\d+)\s*portions?\b/gi, '$1 porciones')
+      .replace(/\b(\d+)\s*pieces?\b/gi, '$1 piezas');
   }
 
   private normalizeImageUrl(imageValue: string): string {

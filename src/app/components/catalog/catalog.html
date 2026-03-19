@@ -14,7 +14,7 @@
       Carrito ({{ countItems() }})
     </button>
     <app-cart></app-cart>
-    <button type="button" (click)="logOut()">Cerrar sesion</button>
+    <button type="button" (click)="logOut()">Cerrar sesión</button>
   </div>
 </header>
 
@@ -34,9 +34,9 @@
 
   <div class="catalog-content">
     @if (products().length === 0) {
-      <p class="empty-state">Cargando productos (o checa donde esta tu xml).</p>
+      <p class="empty-state">Cargando productos (o revisa dónde está tu XML).</p>
     } @else if (filteredProducts().length === 0) {
-      <p class="empty-state">No hay productos para esta categoria.</p>
+      <p class="empty-state">No hay productos para esta categoría.</p>
     } @else {
       <section class="grid">
         @for (p of filteredProducts(); track p.id) {

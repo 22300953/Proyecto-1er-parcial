@@ -75,11 +75,11 @@ export class CartService {
     xml += `    <nota>${this.escapeXml(safeCustomer.note)}</nota>\n`;
     xml += `  </cliente>\n`;
     xml += `  <entrega>\n`;
-    xml += `    <tipo>${safeCustomer.deliveryType}</tipo>\n`;
+    xml += `    <tipo>${this.getDeliveryLabel(safeCustomer.deliveryType)}</tipo>\n`;
     xml += `    <direccion>${this.escapeXml(safeCustomer.deliveryType === 'home' ? safeCustomer.address : '')}</direccion>\n`;
     xml += `  </entrega>\n`;
     xml += `  <pago>\n`;
-    xml += `    <tipo>${safeCustomer.paymentType}</tipo>\n`;
+    xml += `    <tipo>${this.getPaymentLabel(safeCustomer.paymentType)}</tipo>\n`;
     xml += `  </pago>\n`;
     xml += `  <productos>\n`;
 
@@ -136,6 +136,14 @@ export class CartService {
     }
 
     return Array.from(map.values());
+  }
+
+  private getDeliveryLabel(deliveryType: DeliveryType): string {
+    return deliveryType === 'home' ? 'Domicilio' : 'Recoger en sucursal';
+  }
+
+  private getPaymentLabel(paymentType: PaymentType): string {
+    return paymentType === 'card' ? 'Tarjeta' : 'Efectivo';
   }
 
   private escapeXml(value: string): string {

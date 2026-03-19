@@ -11,11 +11,15 @@
     <p class="desc">{{ product.description }}</p>
 
     <p class="stock" [class.out]="!product.inStock">
-      @if (product.inStock) { Disponibles } @else { Agotado }
+      @if (product.inStock) { Disponible } @else { Agotado }
     </p>
 
-    <button class="btn" [disabled]="!product.inStock" (click)="onAdd()">
-      Agregar al carrito
+    <button class="btn" [class.btn-added]="recentlyAdded()" [disabled]="!product.inStock" (click)="onAdd()">
+      @if (recentlyAdded()) {
+        Agregado al carrito
+      } @else {
+        Agregar al carrito
+      }
     </button>
   </div>
 </article>
