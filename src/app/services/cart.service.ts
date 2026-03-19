@@ -28,7 +28,14 @@ export class CartService {
   }
 
   quitar(id: number) {
-    this.productsSignal.update(lista => lista.filter(p => p.id !== id));
+    this.productsSignal.update(lista => {
+      const index = lista.findIndex(p => p.id === id);
+      if (index === -1) {
+        return lista;
+      }
+
+      return [...lista.slice(0, index), ...lista.slice(index + 1)];
+    });
   }
 
   vaciar() {
