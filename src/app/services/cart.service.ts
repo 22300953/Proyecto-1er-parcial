@@ -1,6 +1,18 @@
 import { Injectable, signal } from '@angular/core';
 import { Product } from '../models/product.model';
 
+export type DeliveryType = 'store' | 'home';
+export type PaymentType = 'cash' | 'card';
+
+export interface CustomerData {
+  name: string;
+  phone: string;
+  note: string;
+  deliveryType: DeliveryType;
+  address: string;
+  paymentType: PaymentType;
+}
+
 @Injectable({ providedIn: 'root' })
 export class CartService {
   // Reactive list of cart products
@@ -39,24 +51,59 @@ export class CartService {
     return this.productsSignal().reduce((acc, p) => acc + p.price, 0);
   }
 
-  exportarXML() {
+  exportarXML(customer?: CustomerData) {
     const products = this.productsSignal();
+    const now = new Date().toISOString();
+    const groupedProducts = this.groupProducts(products);
+    const safeCustomer: CustomerData = {
+      name: customer?.name?.trim() ?? '',
+      phone: customer?.phone?.trim() ?? '',
+      note: customer?.note?.trim() ?? '',
+      deliveryType: customer?.deliveryType ?? 'store',
+      address: customer?.address?.trim() ?? '',
+      paymentType: customer?.paymentType ?? 'cash',
+    };
 
     // Estructura XML manual
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<recibo>\n`;
 
-    for (const p of products) {
-      xml += `  <product>\n`;
-      xml += `    <id>${p.id}</id>\n`;
-      xml += `    <nombre>${this.escapeXml(p.name)}</nombre>\n`;
-      xml += `    <precio>${p.price}</precio>\n`;
+    xml += `  <folio>${Date.now()}</folio>\n`;
+    xml += `  <fecha>${now}</fecha>\n`;
+    xml += `  <cliente>\n`;
+    xml += `    <nombre>${this.escapeXml(safeCustomer.name)}</nombre>\n`;
+    xml += `    <telefono>${this.escapeXml(safeCustomer.phone)}</telefono>\n`;
+    xml += `    <nota>${this.escapeXml(safeCustomer.note)}</nota>\n`;
+    xml += `  </cliente>\n`;
+    xml += `  <entrega>\n`;
+    xml += `    <tipo>${safeCustomer.deliveryType}</tipo>\n`;
+    xml += `    <direccion>${this.escapeXml(safeCustomer.deliveryType === 'home' ? safeCustomer.address : '')}</direccion>\n`;
+    xml += `  </entrega>\n`;
+    xml += `  <pago>\n`;
+    xml += `    <tipo>${safeCustomer.paymentType}</tipo>\n`;
+    xml += `  </pago>\n`;
+    xml += `  <productos>\n`;
+
+    for (const p of groupedProducts) {
+      xml += `    <product>\n`;
+      xml += `      <id>${p.id}</id>\n`;
+      xml += `      <nombre>${this.escapeXml(p.name)}</nombre>\n`;
+      xml += `      <categoria>${this.escapeXml(p.category)}</categoria>\n`;
+      xml += `      <cantidad>${p.quantity}</cantidad>\n`;
+      xml += `      <precioUnitario>${p.price}</precioUnitario>\n`;
+      xml += `      <subtotal>${p.subtotal}</subtotal>\n`;
       if (p.description) {
-        xml += `    <descripcion>${this.escapeXml(p.description)}</descripcion>\n`;
+        xml += `      <descripcion>${this.escapeXml(p.description)}</descripcion>\n`;
       }
-      xml += `  </product>\n`;
+      xml += `    </product>\n`;
     }
 
-    xml += `  <total>${this.total()}</total>\n`;
+    xml += `  </productos>\n`;
+    xml += `  <resumen>\n`;
+    xml += `    <articulos>${this.countItems()}</articulos>\n`;
+    xml += `    <lineas>${groupedProducts.length}</lineas>\n`;
+    xml += `    <total>${this.total()}</total>\n`;
+    xml += `  </resumen>\n`;
+
     xml += `</recibo>`;
 
     const blob = new Blob([xml], { type: 'application/xml' });
@@ -68,6 +115,27 @@ export class CartService {
     a.click();
 
     URL.revokeObjectURL(url);
+  }
+
+  private groupProducts(products: Product[]): Array<Product & { quantity: number; subtotal: number }> {
+    const map = new Map<number, Product & { quantity: number; subtotal: number }>();
+
+    for (const product of products) {
+      const existing = map.get(product.id);
+      if (existing) {
+        existing.quantity += 1;
+        existing.subtotal = existing.quantity * existing.price;
+        continue;
+      }
+
+      map.set(product.id, {
+        ...product,
+        quantity: 1,
+        subtotal: product.price,
+      });
+    }
+
+    return Array.from(map.values());
   }
 
   private escapeXml(value: string): string {

@@ -30,35 +30,37 @@
   <div class="cart-form">
     <label>
       Nombre:
-      <input type="text" [value]="customer.name" (input)="customer.name = $event.target.value" />
+      <input type="text" [value]="customer.name" (input)="customer.name = $any($event.target).value" />
     </label>
 
     <label>
       Teléfono:
-      <input type="text" [value]="customer.phone" (input)="customer.phone = $event.target.value" />
+      <input type="text" [value]="customer.phone" (input)="customer.phone = $any($event.target).value" />
     </label>
 
     <label>
       Nota:
-      <textarea (input)="customer.note = $event.target.value">{{ customer.note }}</textarea>
+      <textarea [value]="customer.note" (input)="customer.note = $any($event.target).value"></textarea>
     </label>
 
     <label>
       Tipo de entrega:
-      <select (change)="customer.deliveryType = $event.target.value">
+      <select [value]="customer.deliveryType" (change)="customer.deliveryType = $any($event.target).value">
         <option value="store">Recoger en sucursal</option>
         <option value="home">Domicilio</option>
       </select>
     </label>
 
-    <label *if="customer.deliveryType === 'home'">
-      Dirección:
-      <input type="text" [value]="customer.address" (input)="customer.address = $event.target.value" />
-    </label>
+    @if (customer.deliveryType === 'home') {
+      <label>
+        Dirección:
+        <input type="text" [value]="customer.address" (input)="customer.address = $any($event.target).value" />
+      </label>
+    }
 
     <label>
       Tipo de pago:
-      <select (change)="customer.paymentType = $event.target.value">
+      <select [value]="customer.paymentType" (change)="customer.paymentType = $any($event.target).value">
         <option value="cash">Efectivo</option>
         <option value="card">Tarjeta</option>
       </select>

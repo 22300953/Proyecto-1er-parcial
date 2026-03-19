@@ -10,7 +10,7 @@
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 8;
+  z-index: 30;
   background: rgba(61, 37, 0, 1);
   color: #fff8ed;
   display: flex;
@@ -45,6 +45,12 @@
   cursor: pointer;
   font-weight: bold;
   line-height: 1.1;
+}
+
+.topbar-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 

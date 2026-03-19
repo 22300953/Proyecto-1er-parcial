@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { CartService } from '../../services/cart.service';
+import { CartService, CustomerData } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 import { Signal } from '@angular/core';
 
@@ -15,6 +15,14 @@ export class CartComponent {
   items: Signal<Product[]>;
   isOpen: Signal<boolean>;
   total = computed(() => this.cartService.total());
+  customer: CustomerData = {
+    name: '',
+    phone: '',
+    note: '',
+    deliveryType: 'store',
+    address: '',
+    paymentType: 'cash',
+  };
 
   constructor() {
     this.items = this.cartService.products;
@@ -34,7 +42,11 @@ export class CartComponent {
   }
 
   exportXml() {
-    this.cartService.exportarXML();
+    this.cartService.exportarXML(this.customer);
+  }
+
+  exportOrder() {
+    this.exportXml();
   }
   
 }
