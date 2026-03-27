@@ -34,7 +34,7 @@
 
   <div class="catalog-content">
     @if (products().length === 0) {
-      <p class="empty-state">Cargando productos (o revisa dónde está tu XML).</p>
+      <p class="empty-state">Cargando productos (o revisa la conexión con la API).</p>
     } @else if (filteredProducts().length === 0) {
       <p class="empty-state">No hay productos para esta categoría.</p>
     } @else {

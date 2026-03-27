@@ -1,4 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, computed, OnInit, signal } from '@angular/core';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
@@ -14,7 +16,10 @@ type FilterKey = 'todos' | 'pasteles' | 'gelatinas' | 'galletas' | 'pays' | 'otr
   templateUrl: './catalog.html',
   styleUrls: ['./catalog.css'],
 })
-export class CatalogComponent {
+export class CatalogComponent implements OnInit {
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly productsService = inject(ProductsService);
+  private readonly cartService = inject(CartService);
   products = signal<Product[]>([]);
   selectedFilter = signal<FilterKey>('todos');
   inStockCount = computed(() => this.products().filter(p => p.inStock).length);
@@ -29,13 +34,17 @@ export class CatalogComponent {
     return list.filter(product => this.matchesFilter(product.category, filter));
   });
 
-  constructor(
-    private productsService: ProductsService,
-    private cartService: CartService
-  ) {
-    this.productsService.getAll().subscribe({
-      next: (data: Product[]) => this.products.set(data),
-      error: (err: any) => console.error('Error cargando XML:', err),
+  ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.productsService.getProducts().subscribe({
+      next: (data: Product[]) => {
+        this.products.set(data);
+        console.log('Productos recibidos', data);
+      },
+      error: (err: any) => console.error('Error cargando productos desde API:', err),
     });
   }
 

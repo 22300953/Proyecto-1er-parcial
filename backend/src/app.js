@@ -1,0 +1,25 @@
+const express = require('express');
+const cors = require('cors');
+const productsRoutes = require('./routes/products.routes');
+const { errorHandler } = require('./middleware/error.middleware');
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Backend API en ejecucion',
+    endpoints: ['/health', '/api/productos', '/api/products'],
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+app.use('/api', productsRoutes);
+app.use(errorHandler);
+
+module.exports = app;

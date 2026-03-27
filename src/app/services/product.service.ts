@@ -1,39 +1,34 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { map, Observable} from "rxjs"
+import { Observable, map } from "rxjs";
 import { Product } from "../models/product.model";
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
-  constructor(private http: HttpClient) {}
+  private readonly apiUrl = 'http://localhost:3000/api/productos';
+  private readonly http = inject(HttpClient);
 
-  getAll(): Observable<Product[]> {
-    // Pedimos el XML como texto plano
-    return this.http.get('/productos.xml', { responseType: 'text' }).pipe(
-      map((xmlText) => this.parseProductsXml(xmlText))
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl).pipe(
+      map((products) => products.map((product) => this.normalizeProduct(product)))
     );
   }
 
-  private parseProductsXml(xmlText: string): Product[] {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(xmlText, 'application/xml');
+  // Alias para mantener compatibilidad con llamadas existentes en el proyecto.
+  getAll(): Observable<Product[]> {
+    return this.getProducts();
+  }
 
-    // Si el XML está mal formado, normalmente aparece <parsererror>
-    if (doc.getElementsByTagName('parsererror').length > 0) {
-      return [];
-    }
-
-    const nodes = Array.from(doc.getElementsByTagName('product'));
-
-    return nodes.map((node) => ({
-      id: this.getNumber(node, 'id'),
-      name: this.getText(node, 'name'),
-      price: this.getNumber(node, 'price'),
-      imageUrl: this.normalizeImageUrl(this.getText(node, 'imageUrl') || this.getText(node, 'image')),
-      category: this.normalizeCategory(this.getText(node, 'category')),
-      description: this.normalizeDescription(this.getText(node, 'description') || this.getText(node, 'portions')),
-      inStock: this.hasTag(node, 'inStock') ? this.getBoolean(node, 'inStock') : true,
-    }));
+  private normalizeProduct(product: Product): Product {
+    return {
+      id: Number.isFinite(Number(product.id)) ? Number(product.id) : 0,
+      name: (product.name || '').trim(),
+      price: Number.isFinite(Number(product.price)) ? Number(product.price) : 0,
+      imageUrl: this.normalizeImageUrl(product.imageUrl || ''),
+      category: this.normalizeCategory(product.category || ''),
+      description: this.normalizeDescription(product.description || ''),
+      inStock: product.inStock ?? true,
+    };
   }
 
   private normalizeCategory(value: string): string {
@@ -80,24 +75,5 @@ export class ProductsService {
     }
 
     return `/assets/${image}`;
-  }
-
-  private hasTag(parent: Element, tag: string): boolean {
-    return parent.getElementsByTagName(tag).length > 0;
-  }
-
-  private getText(parent: Element, tag: string): string {
-    return parent.getElementsByTagName(tag)[0]?.textContent?.trim() ?? '';
-  }
-
-  private getNumber(parent: Element, tag: string): number {
-    const value = this.getText(parent, tag);
-    const n = Number(value);
-    return Number.isFinite(n) ? n : 0;
-  }
-
-  private getBoolean(parent: Element, tag: string): boolean {
-    const value = this.getText(parent, tag).toLowerCase();
-    return value === 'true' || value === '1' || value === 'yes';
   }
 }
