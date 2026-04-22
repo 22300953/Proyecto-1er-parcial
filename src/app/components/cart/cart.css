@@ -86,6 +86,30 @@
   font-size: 13px;
 }
 
+.quantity-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.quantity-control button {
+  border: 1px solid #b35c44;
+  color: #6b1d0f;
+  background: #fde7e1;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quantity-control span {
+  min-width: 26px;
+  text-align: center;
+  font-weight: 700;
+}
+
 .item button {
   border: 1px solid #b35c44;
   color: #6b1d0f;
@@ -95,6 +119,10 @@
   height: 28px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.item button.remove-line {
+  background: #f8d1d1;
 }
 
 .cart-form {

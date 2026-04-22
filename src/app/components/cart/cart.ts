@@ -53,8 +53,16 @@ export class CartComponent {
     this.isOpen = this.cartService.isCartOpen;
   }
 
+  decreaseQuantity(id: number) {
+    this.cartService.decrementarCantidad(id);
+  }
+
+  increaseQuantity(id: number) {
+    this.cartService.incrementarCantidad(id);
+  }
+
   removeItem(id: number) {
-    this.cartService.quitar(id);
+    this.cartService.eliminarLinea(id);
   }
 
   clearCart() {

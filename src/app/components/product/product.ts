@@ -27,4 +27,9 @@ export class ProductCardComponent {
 
     this.add.emit(this.product);
   }
+
+  onImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.src = '/assets/logo.png';
+  }
 }

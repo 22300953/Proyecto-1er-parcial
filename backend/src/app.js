@@ -8,10 +8,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const paypalRoutes = require('./routes/paypal.routes.ts');
+
 app.get('/', (req, res) => {
   res.json({
     message: 'Backend API en ejecucion',
-    endpoints: ['/health', '/api/productos', '/api/products'],
+    endpoints: ['/health', '/api/productos', '/api/products', '/api/paypal/create-order', '/api/paypal/capture-order/:orderId'],
   });
 });
 
@@ -20,6 +22,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api', productsRoutes);
+app.use('/api/paypal', paypalRoutes.paypalRouter);
 app.use(errorHandler);
 
 module.exports = app;

@@ -70,10 +70,24 @@ export class ProductsService {
       return '/assets/logo.png';
     }
 
-    if (/^https?:\/\//i.test(image) || image.startsWith('/')) {
-      return image;
+    const resolvedImage = this.mapLegacyImageName(image);
+
+    if (/^https?:\/\//i.test(resolvedImage) || resolvedImage.startsWith('/')) {
+      return resolvedImage;
     }
 
-    return `/assets/${image}`;
+    return `/assets/${resolvedImage}`;
+  }
+
+  private mapLegacyImageName(imageValue: string): string {
+    const normalized = imageValue.trim().toLowerCase();
+    const legacyMap: Record<string, string> = {
+      'pastel-chocolate.jpg': 'pastel1.jpeg',
+      'gelatina-fresa.jpg': 'gelatinamango.webp',
+      'galletas.jpg': 'galletas_surtidas.jpg',
+      'pan.png': 'pan_dulce.webp',
+    };
+
+    return legacyMap[normalized] ?? imageValue;
   }
 }

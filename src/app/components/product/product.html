@@ -1,5 +1,5 @@
 <article class="card">
-  <img class="img" [src]="product.imageUrl" [alt]="product.name" />
+  <img class="img" [src]="product.imageUrl" [alt]="product.name" (error)="onImageError($event)" />
 
   <div class="body">
     <div class="top">

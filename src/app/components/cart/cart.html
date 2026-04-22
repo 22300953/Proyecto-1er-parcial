@@ -20,11 +20,15 @@
       <div>
         <strong>{{ item.name }}</strong>
         <p>{{ item.category }}</p>
-        <p>Cantidad: {{ item.quantity }}</p>
+        <div class="quantity-control">
+          <button type="button" (click)="decreaseQuantity(item.id)">-</button>
+          <span>{{ item.quantity }}</span>
+          <button type="button" (click)="increaseQuantity(item.id)">+</button>
+        </div>
         <p>Precio: ${{ item.price.toFixed(2) }}</p>
         <p>Subtotal: ${{ item.subtotal.toFixed(2) }}</p>
       </div>
-      <button type="button" (click)="removeItem(item.id)">-1</button>
+      <button type="button" class="remove-line" (click)="removeItem(item.id)">X</button>
     </div>
   }
 

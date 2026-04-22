@@ -38,6 +38,23 @@ export class CartService {
     });
   }
 
+  incrementarCantidad(id: number) {
+    const product = this.productsSignal().find(p => p.id === id);
+    if (!product) {
+      return;
+    }
+
+    this.agregar(product);
+  }
+
+  decrementarCantidad(id: number) {
+    this.quitar(id);
+  }
+
+  eliminarLinea(id: number) {
+    this.productsSignal.update(lista => lista.filter(p => p.id !== id));
+  }
+
   vaciar() {
     this.productsSignal.set([]);
   }

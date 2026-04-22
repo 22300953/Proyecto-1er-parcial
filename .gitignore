@@ -14,7 +14,13 @@ yarn-error.log
 /backend/node_modules
 /backend/npm-debug.log
 /backend/yarn-error.log
-/backend/.env
+
+# Environment variables
+# This .env file will be shown in the repository for development purposes,
+# so it should not contain any sensitive information.
+# Instead, use environment variables on your deployment platform or a separate 
+# .env file that is not committed to version control.
+# /backend/.env
 
 # IDEs and editors
 .idea/
@@ -43,6 +49,8 @@ yarn-error.log
 testem.log
 /typings
 __screenshots__/
+/AVISO-DE-PRIVACIDAD.md
+/TERMINOS-Y-CONDICIONES.md
 
 # System files
 .DS_Store
