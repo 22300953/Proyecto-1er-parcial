@@ -7,6 +7,7 @@ type CartLine = Product & { quantity: number; subtotal: number };
 
 @Component({
   selector: 'app-cart',
+  standalone: true,
   templateUrl: './cart.html',
   styleUrls: ['./cart.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

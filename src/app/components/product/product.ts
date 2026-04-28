@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './product.html',
   styleUrls: ['./product.css'],
 })

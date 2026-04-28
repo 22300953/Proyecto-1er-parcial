@@ -1,0 +1,57 @@
+<header class="topbar">
+  <div class="brand">
+    <img src="/assets/logo.png" alt="Logo" />
+    <h1>Backed Bliss</h1>
+  </div>
+  <div class="topbar-actions">
+    <button
+      type="button"
+      class="carrito-toggle"
+      (click)="toggleCart()"
+      [attr.aria-expanded]="cartIsOpen()"
+      aria-controls="panel-cart"
+    >
+      Carrito ({{ countItems() }})
+    </button>
+    <app-cart></app-cart>
+    <button type="button" (click)="logOut()">Cerrar sesión</button>
+  </div>
+</header>
+
+<header class="header"></header>
+
+<section class="product-detail-page">
+  <nav class="breadcrumb">
+    <a routerLink="/">Inicio</a>
+    <span>›</span>
+    <a routerLink="/">Catálogo</a>
+    <span>›</span>
+    <span>{{ product()?.name || 'Detalle del producto' }}</span>
+  </nav>
+
+  @if (loading()) {
+    <p class="status">Cargando producto...</p>
+  } @else if (error()) {
+    <p class="status status--error">{{ error() }}</p>
+  } @else if (product()) {
+    <article class="detail-card">
+      <div class="image-column">
+        <img class="detail-img" [src]="product()!.imageUrl" [alt]="product()!.name" />
+      </div>
+
+      <div class="info-column">
+        <h1>{{ product()!.name }}</h1>
+        <p class="category">Categoría: {{ product()!.category }}</p>
+        <p class="price">Precio: $ {{ product()!.price }}</p>
+        <p class="stock" [class.out]="!product()!.inStock">
+          @if (product()!.inStock) { Disponible } @else { Agotado }
+        </p>
+        <p class="description">{{ product()!.description }}</p>
+
+        <button class="btn" [disabled]="!product()!.inStock" (click)="addToCart()">
+          Agregar al carrito
+        </button>
+      </div>
+    </article>
+  }
+</section>

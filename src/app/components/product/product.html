@@ -1,5 +1,7 @@
 <article class="card">
-  <img class="img" [src]="product.imageUrl" [alt]="product.name" (error)="onImageError($event)" />
+  <a class="image-link" [routerLink]="['/producto', product.id]" title="Ver detalle del producto">
+    <img class="img" [src]="product.imageUrl" [alt]="product.name" (error)="onImageError($event)" />
+  </a>
 
   <div class="body">
     <div class="top">

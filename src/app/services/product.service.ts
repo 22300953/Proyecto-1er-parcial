@@ -14,6 +14,12 @@ export class ProductsService {
     );
   }
 
+  getProductById(id: number): Observable<Product | null> {
+    return this.getProducts().pipe(
+      map((products) => products.find((product) => product.id === id) ?? null)
+    );
+  }
+
   // Alias para mantener compatibilidad con llamadas existentes en el proyecto.
   getAll(): Observable<Product[]> {
     return this.getProducts();
