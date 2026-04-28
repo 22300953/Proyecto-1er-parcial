@@ -62,6 +62,10 @@ export class Checkout implements OnInit {
     return Array.from(map.values());
   }
 
+  goBack() {
+    this.router.navigate(['/']);
+  }
+
   private buildOrderPayload(): CreatePaypalOrderPayload {
     const grouped = this.groupProducts();
     const items = grouped.map(g => ({ nombre: g.name, cantidad: g.quantity, precio: g.price }));

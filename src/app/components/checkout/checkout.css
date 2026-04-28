@@ -1,3 +1,61 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: linear-gradient(165deg, #fff7e7 0%, #f4dcb3 45%, #d3a56b 100%);
+  color: #3d2500;
+  font-family: 'EB Garamond', serif;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(61, 37, 0, 1);
+  color: #fff8ed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.brand img {
+  width: 46px;
+}
+
+.brand h1 {
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.topbar-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-actions button {
+  background: #f3e8d9;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 10px;
+  margin-left: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.header {
+  margin: 20px;
+}
+
 .checkout {
 	max-width: 720px;
 	margin: 0 auto;

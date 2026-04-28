@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS products (
 
 INSERT INTO products (name, price, image_url, category, description, in_stock)
 VALUES
-  ('Pastel de chocolate', 320.00, 'pastel1.jpeg', 'Pastel', '8 porciones', TRUE),
+  ('Pastel de chocolate', 320.00, 'pastel4.jpeg', 'Pastel', '8 porciones', TRUE),
   ('Pastel de fresa', 305.00, 'pastel2.jpeg', 'Pastel', '8 porciones', TRUE),
   ('Pastel de limón', 295.00, 'pastel3.jpeg', 'Pastel', '8 porciones', TRUE),
-  ('Pastel de vainilla', 290.00, 'pastel4.jpeg', 'Pastel', '8 porciones', TRUE),
+  ('Pastel de vainilla', 290.00, 'pastel1.jpeg', 'Pastel', '8 porciones', TRUE),
   ('Pastel de frutas', 330.00, 'pastel5.jpeg', 'Pastel', '10 porciones', TRUE),
   ('Chocoflan', 260.00, 'chocoflan.webp', 'Postre', '7 porciones', TRUE),
   ('Pastel de chocofresa', 340.00, 'chocofresa.png', 'Pastel', '8 porciones', TRUE),
