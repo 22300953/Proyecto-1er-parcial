@@ -18,10 +18,12 @@ export class CartService {
   // Reactive list of cart products
   private productsSignal = signal<Product[]>([]);
   private isCartOpenSignal = signal(false);
+  private customerDataSignal = signal<CustomerData | null>(null);
 
   // Expose readonly signals
   products = this.productsSignal.asReadonly();
   isCartOpen = this.isCartOpenSignal.asReadonly();
+  customerData = this.customerDataSignal.asReadonly();
 
   agregar(product: Product) {
     this.productsSignal.update(lista => [...lista, product]);
@@ -59,6 +61,14 @@ export class CartService {
     this.productsSignal.set([]);
   }
 
+  setCustomerData(data: CustomerData) {
+    this.customerDataSignal.set(data);
+  }
+
+  getCustomerData(): CustomerData | null {
+    return this.customerDataSignal();
+  }
+
   toggleCart() {
     this.isCartOpenSignal.update(isOpen => !isOpen);
   }
@@ -75,7 +85,7 @@ export class CartService {
     return this.productsSignal().reduce((acc, p) => acc + p.price, 0);
   }
 
-  exportarXML(customer?: CustomerData) {
+  exportarXML(customer?: CustomerData, paypalData?: { orderId: string; status: string }) {
     const products = this.productsSignal();
     const now = new Date().toISOString();
     const groupedProducts = this.groupProducts(products);
@@ -104,6 +114,10 @@ export class CartService {
     xml += `  </entrega>\n`;
     xml += `  <pago>\n`;
     xml += `    <tipo>${this.getPaymentLabel(safeCustomer.paymentType)}</tipo>\n`;
+    if (paypalData) {
+      xml += `    <paypalOrderId>${this.escapeXml(paypalData.orderId)}</paypalOrderId>\n`;
+      xml += `    <paypalStatus>${this.escapeXml(paypalData.status)}</paypalStatus>\n`;
+    }
     xml += `  </pago>\n`;
     xml += `  <productos>\n`;
 

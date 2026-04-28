@@ -5,7 +5,9 @@ export const createOrder = async (req: Request, res: Response, next: NextFunctio
   try {
     const orderData = req.body as CreatePaypalOrderPayload;
     const order = await createPaypalOrder(orderData);
-    return res.status(201).json(order);
+    // Normalizar respuesta: devolver sólo el id de la orden para el cliente
+    const id = (order as any)?.id || null;
+    return res.status(201).json({ id });
   } catch (error) {
     next(error);
   }

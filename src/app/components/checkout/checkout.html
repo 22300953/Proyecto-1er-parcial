@@ -1,1 +1,21 @@
-<p>checkout works!</p>
+<section class="checkout">
+	<h2>Resumen de tu pedido</h2>
+
+	<div *ngIf="products.length === 0">No hay artículos en el carrito.</div>
+
+	<ul *ngIf="products.length > 0" class="items">
+		<li *ngFor="let g of (groupProducts() || [])">
+			<div class="item-name">{{ g.name }}</div>
+			<div class="item-qty">x{{ g.quantity }}</div>
+			<div class="item-price">${{ g.subtotal.toFixed(2) }}</div>
+		</li>
+	</ul>
+
+	<div class="total">Total: ${{ total.toFixed(2) }}</div>
+
+	<div id="paypal-button-container" class="paypal-container"></div>
+
+	<div *ngIf="loading()" class="status">Procesando...</div>
+	<div *ngIf="success()" class="status success">Pago realizado con éxito. Gracias.</div>
+	<div *ngIf="error()" class="status error">{{ error() }}</div>
+</section>

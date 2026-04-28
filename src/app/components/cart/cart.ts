@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService, CustomerData } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 import { Signal } from '@angular/core';
@@ -14,6 +15,7 @@ type CartLine = Product & { quantity: number; subtotal: number };
 })
 export class CartComponent {
   private cartService = inject(CartService);
+  private router = inject(Router);
 
   items: Signal<Product[]>;
   isOpen: Signal<boolean>;
@@ -75,6 +77,7 @@ export class CartComponent {
   }
 
   exportXml() {
+    console.log('CartComponent.exportXml invoked');
     this.cartService.exportarXML(this.customer);
   }
 
@@ -86,7 +89,10 @@ export class CartComponent {
     }
 
     this.validationErrors.set([]);
-    this.exportXml();
+    // Guardar datos del cliente en el servicio para usar en checkout
+    this.cartService.setCustomerData(this.customer);
+    // Navegar a la vista de checkout donde se muestran los botones PayPal
+    this.router.navigate(['/checkout']);
   }
 
   private validateForm(): string[] {

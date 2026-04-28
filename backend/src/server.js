@@ -3,11 +3,14 @@ require('dotenv').config();
 
 const app = require('./app');
 const { connectDB } = require('./config/db');
+const { validatePaypalConfig } = require('./config/paypal.config.ts');
 
 const PORT = Number(process.env.PORT || 3000);
 
 const startServer = async () => {
   try {
+    // Validar que las credenciales de PayPal estén definidas antes de iniciar
+    validatePaypalConfig();
     await connectDB();
 
     app.listen(PORT, () => {
