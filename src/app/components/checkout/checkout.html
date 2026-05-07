@@ -17,11 +17,11 @@
 		<li *ngFor="let g of (groupProducts() || [])">
 			<div class="item-name">{{ g.name }}</div>
 			<div class="item-qty">x{{ g.quantity }}</div>
-			<div class="item-price">${{ g.subtotal.toFixed(2) }}</div>
+			<div class="item-price">${{ g.subtotal.toFixed(2) }} <small>IVA incluido</small></div>
 		</li>
 	</ul>
 
-	<div class="total">Total: ${{ total.toFixed(2) }}</div>
+	<div class="total">Total: ${{ total.toFixed(2) }} <small>IVA incluido</small></div>
 
 	<div id="paypal-button-container" class="paypal-container"></div>
 

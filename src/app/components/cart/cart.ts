@@ -116,9 +116,6 @@ export class CartComponent {
       errors.push('El teléfono es obligatorio.');
     }
 
-    if (!customer.note) {
-      errors.push('La nota es obligatoria.');
-    }
 
     if (this.customer.deliveryType === 'home' && !customer.address) {
       errors.push('La dirección es obligatoria para envío a domicilio.');

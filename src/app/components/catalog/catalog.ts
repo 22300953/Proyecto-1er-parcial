@@ -6,13 +6,12 @@ import { ProductsService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { ProductCardComponent } from '../product/product';
 import { CartComponent } from '../cart/cart';
-
-type FilterKey = 'todos' | 'pasteles' | 'gelatinas' | 'galletas' | 'pays' | 'otros';
+import { FilterMenuComponent, FilterKey } from '../filter-menu/filter-menu';
 
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [ProductCardComponent, CartComponent],
+  imports: [ProductCardComponent, CartComponent, FilterMenuComponent],
   templateUrl: './catalog.html',
   styleUrls: ['./catalog.css'],
 })
@@ -68,12 +67,8 @@ export class CatalogComponent implements OnInit {
     console.info('La acción de cerrar sesión todavía no está implementada.');
   }
 
-  setFilter(filter: FilterKey) {
+  onFilterChange(filter: FilterKey) {
     this.selectedFilter.set(filter);
-  }
-
-  isSelectedFilter(filter: FilterKey): boolean {
-    return this.selectedFilter() === filter;
   }
 
   private normalizeCategory(value: string): string {

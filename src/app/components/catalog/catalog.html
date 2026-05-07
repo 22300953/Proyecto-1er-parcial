@@ -21,17 +21,9 @@
 <header class="header">
 </header>
 
-<section class="catalog-layout">
-  <aside class="filters">
-    <p>Productos en venta: {{ inStockCount() }}</p>
-    <button type="button" (click)="setFilter('todos')" [class.is-active]="isSelectedFilter('todos')">Todos</button>
-    <button type="button" (click)="setFilter('pasteles')" [class.is-active]="isSelectedFilter('pasteles')">Pasteles</button>
-    <button type="button" (click)="setFilter('gelatinas')" [class.is-active]="isSelectedFilter('gelatinas')">Gelatinas</button>
-    <button type="button" (click)="setFilter('galletas')" [class.is-active]="isSelectedFilter('galletas')">Galletas</button>
-    <button type="button" (click)="setFilter('pays')" [class.is-active]="isSelectedFilter('pays')">Pays</button>
-    <button type="button" (click)="setFilter('otros')" [class.is-active]="isSelectedFilter('otros')">Otros</button>
-  </aside>
+<app-filter-menu (filterChange)="onFilterChange($event)"></app-filter-menu>
 
+<section class="catalog-layout">
   <div class="catalog-content">
     @if (products().length === 0) {
       <p class="empty-state">Cargando productos (o revisa la conexión con la API).</p>

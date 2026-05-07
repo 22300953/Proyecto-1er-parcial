@@ -1,0 +1,43 @@
+<!-- Toggle siempre visible en el borde izquierdo -->
+<button
+  type="button"
+  class="drawer-toggle"
+  (click)="toggleMenu()"
+  [attr.aria-expanded]="isOpen()"
+  aria-controls="filter-drawer"
+>
+  <span class="arrow" [class.open]="isOpen()">&#9654;</span>
+</button>
+
+@if (isOpen()) {
+  <div class="drawer-backdrop" (click)="closeMenu()" aria-hidden="true"></div>
+}
+
+<aside
+  id="filter-drawer"
+  class="filter-drawer"
+  [class.open]="isOpen()"
+  [attr.aria-hidden]="!isOpen()"
+>
+  <div class="drawer-header">
+    <h3>Filtros</h3>
+    <button type="button" class="drawer-close" (click)="closeMenu()" aria-label="Cerrar filtros">&#10005;</button>
+  </div>
+
+  <nav class="filter-list">
+    @for (f of filters; track f) {
+      <button
+        type="button"
+        (click)="selectFilter(f)"
+        [class.is-active]="isActive(f)"
+      >
+        {{ filterLabels[f] }}
+      </button>
+    }
+  </nav>
+
+  <div class="drawer-footer">
+    <a routerLink="/terminos" class="terms-link" (click)="closeOnNavigate()">Ver términos y condiciones</a>
+    <a routerLink="/privacidad" class="terms-link" (click)="closeOnNavigate()">Aviso de privacidad</a>
+  </div>
+</aside>

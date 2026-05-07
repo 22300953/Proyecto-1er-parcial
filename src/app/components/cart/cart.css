@@ -86,6 +86,21 @@
   font-size: 13px;
 }
 
+.item p small {
+  font-weight: 500;
+  font-size: 11px;
+  color: #6b7280;
+  display: block;
+  margin-top: 1px;
+}
+
+.total small {
+  font-weight: 400;
+  font-size: 12px;
+  color: #6b7280;
+  float: right;
+}
+
 .quantity-control {
   display: inline-flex;
   align-items: center;

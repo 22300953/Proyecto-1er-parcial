@@ -26,7 +26,7 @@
           <button type="button" (click)="increaseQuantity(item.id)">+</button>
         </div>
         <p>Precio: ${{ item.price.toFixed(2) }}</p>
-        <p>Subtotal: ${{ item.subtotal.toFixed(2) }}</p>
+        <p>Subtotal: ${{ item.subtotal.toFixed(2) }} <small>IVA incluido</small></p>
       </div>
       <button type="button" class="remove-line" (click)="removeItem(item.id)">X</button>
     </div>
@@ -84,7 +84,7 @@
     </div>
   }
 
-  <p class="total">TOTAL: ${{ total().toFixed(2) }}</p>
+  <p class="total">TOTAL: ${{ total().toFixed(2) }} <small>IVA incluido</small></p>
 
   <div class="actions">
     <button class="btn danger" type="button" (click)="clearCart()">Vaciar el carrito :c</button>

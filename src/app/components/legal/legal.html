@@ -1,0 +1,14 @@
+<div class="legal-page">
+  <a class="back-link" routerLink="/">&larr; Volver al catálogo</a>
+
+  @if (loading()) {
+    <p class="loading">Cargando documento...</p>
+  } @else if (error()) {
+    <p class="error">No se pudo cargar el documento.</p>
+  } @else {
+    <article class="legal-card">
+      <h1 class="legal-title">{{ title() }}</h1>
+      <div class="legal-content" [innerHTML]="contentHtml()"></div>
+    </article>
+  }
+</div>

@@ -42,7 +42,7 @@
       <div class="info-column">
         <h1>{{ product()!.name }}</h1>
         <p class="category">Categoría: {{ product()!.category }}</p>
-        <p class="price">Precio: $ {{ product()!.price }}</p>
+        <p class="price">Precio: $ {{ product()!.price }} <small>IVA incluido</small></p>
         <p class="stock" [class.out]="!product()!.inStock">
           @if (product()!.inStock) { Disponible } @else { Agotado }
         </p>
