@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 export type FilterKey = 'todos' | 'pasteles' | 'gelatinas' | 'galletas' | 'pays' | 'otros';
 
@@ -15,7 +14,7 @@ const FILTER_LABELS: Record<FilterKey, string> = {
 @Component({
   selector: 'app-filter-menu',
   standalone: true,
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './filter-menu.html',
   styleUrls: ['./filter-menu.css'],
 })
@@ -42,9 +41,5 @@ export class FilterMenuComponent {
 
   isActive(filter: FilterKey): boolean {
     return this.selectedFilter() === filter;
-  }
-
-  closeOnNavigate() {
-    this.isOpen.set(false);
   }
 }

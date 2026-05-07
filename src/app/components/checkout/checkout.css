@@ -1,7 +1,7 @@
 :host {
   display: block;
   min-height: 100dvh;
-  background: linear-gradient(165deg, #fff7e7 0%, #f4dcb3 45%, #d3a56b 100%);
+  background: #f4dcb3;
   color: #3d2500;
   font-family: 'EB Garamond', serif;
 }

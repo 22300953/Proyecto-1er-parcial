@@ -13,10 +13,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, #fff8ed 0%, #f7e7cf 100%);
-  border: 1px solid #c09a6d;
+  background: #fbf0e0;
+  border: 1px solid #c9a87c;
   border-left: none;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 8px 8px 0;
   color: #3d2500;
   cursor: pointer;
   box-shadow: 2px 2px 8px rgba(61, 37, 0, 0.12);
@@ -26,12 +26,12 @@
 }
 
 .drawer-toggle:hover {
-  background: linear-gradient(180deg, #fff2de 0%, #f3dbbb 100%);
+  background: #f9e6cc;
   width: 34px;
 }
 
 .drawer-toggle:active {
-  background: linear-gradient(180deg, #f3d2a2 0%, #e3b97e 100%);
+  background: #ebc590;
 }
 
 .arrow {
@@ -60,8 +60,8 @@
   bottom: 0;
   width: 220px;
   z-index: 35;
-  background: linear-gradient(180deg, #f8ead5 0%, #f0ddbe 100%);
-  border-right: 1px solid #b0895f;
+  background: #f4e3c9;
+  border-right: 1px solid #c9a87c;
   box-shadow: 8px 0 24px rgba(61, 37, 0, 0.18);
   transform: translateX(-100%);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -120,7 +120,7 @@
   padding: 8px 12px;
   border-radius: 10px;
   border: 1px solid #c09a6d;
-  background: linear-gradient(180deg, #fff8ed 0%, #f7e7cf 100%);
+  background: #fbf0e0;
   color: #3d2500;
   font-weight: 700;
   cursor: pointer;
@@ -128,7 +128,7 @@
 }
 
 .filter-list button:hover {
-  background: linear-gradient(180deg, #fff2de 0%, #f3dbbb 100%);
+  background: #f9e6cc;
   border-color: #9e774c;
   box-shadow: 0 3px 10px rgba(61, 37, 0, 0.12);
   transform: translateY(-1px);
@@ -145,7 +145,7 @@
 }
 
 .filter-list button.is-active {
-  background: linear-gradient(180deg, #f3d2a2 0%, #e3b97e 100%);
+  background: #ebc590;
   border-color: #8c5b2d;
   box-shadow: 0 3px 10px rgba(61, 37, 0, 0.16);
 }
@@ -153,28 +153,6 @@
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
-}
-
-/* Footer del drawer */
-.drawer-footer {
-  margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid rgba(109, 65, 10, 0.22);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: center;
-}
-
-.terms-link {
-  font-size: 12px;
-  color: #7b4f1d;
-  text-decoration: underline;
-  transition: color 0.2s ease;
-}
-
-.terms-link:hover {
-  color: #3d2500;
 }
 
 @media (max-width: 900px) {

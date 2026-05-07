@@ -1,6 +1,6 @@
 :host {
   display: block;
-  background: linear-gradient(180deg, #f8ead5 0%, #f0ddbe 100%);
+  background: #f4e3c9;
   min-height: 100vh;
 }
 
@@ -27,9 +27,9 @@
 }
 
 .legal-card {
-  background: linear-gradient(180deg, #ffffff 0%, #fff8e5 100%);
-  border: 1px solid #b0895f;
-  border-radius: 14px;
+  background: #fffcf2;
+  border: 1px solid #c9a87c;
+  border-radius: 10px;
   box-shadow: 0 4px 16px rgba(61, 37, 0, 0.12);
   padding: 28px 32px;
 }
