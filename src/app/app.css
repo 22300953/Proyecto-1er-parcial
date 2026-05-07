@@ -41,6 +41,8 @@ router-outlet {
 .footer-text {
   color: #bfa27f;
   font-size: 16px;
+  text-align: center;
+  width: 100%;
 }
 
 .footer-links {
