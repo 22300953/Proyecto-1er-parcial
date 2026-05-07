@@ -21,7 +21,7 @@ const FILTER_LABELS: Record<FilterKey, string> = {
 export class FilterMenuComponent {
   @Output() filterChange = new EventEmitter<FilterKey>();
 
-  isOpen = signal(false);
+  isOpen = signal(true);
   selectedFilter = signal<FilterKey>('todos');
   filterLabels = FILTER_LABELS;
   filters = Object.keys(FILTER_LABELS) as FilterKey[];

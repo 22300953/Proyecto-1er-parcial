@@ -9,41 +9,50 @@
 }
 
 router-outlet {
-  flex: 1;
+  display: none;
+}
+
+.container > *:not(.site-footer) {
+  flex: 1 0 auto;
+}
+
+.container > .site-footer {
+  flex: 0 0 auto;
 }
 
 .site-footer {
   background: #3d2500;
   color: #d4b896;
-  padding: 14px 16px;
+  padding: 32px 24px;
   margin-top: auto;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .footer-inner {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 8px 16px;
+  gap: 14px 28px;
 }
 
 .footer-text {
   color: #bfa27f;
+  font-size: 16px;
 }
 
 .footer-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 14px;
 }
 
 .footer-links a {
   color: #c9a87c;
   text-decoration: underline;
-  font-size: 12px;
+  font-size: 16px;
   transition: color 0.2s ease;
 }
 
@@ -53,6 +62,7 @@ router-outlet {
 
 .footer-separator {
   color: #8c6f4f;
+  font-size: 16px;
 }
 
 @media (max-width: 600px) {

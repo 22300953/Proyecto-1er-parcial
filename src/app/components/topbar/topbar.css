@@ -1,0 +1,150 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.topbar {
+  background: rgba(61, 37, 0, 1);
+  color: #fff8ed;
+  padding: 12px 0;
+}
+
+.topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 6px 8px;
+  cursor: pointer;
+  color: #fff8ed;
+  font-family: 'EB Garamond', serif;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+  color: #ebc590;
+  transform: translateX(-2px);
+}
+
+.back-label {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand img {
+  width: 56px;
+}
+
+.brand h1 {
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0.6px;
+  margin: 0;
+  font-weight: 600;
+  color: #fff1d9;
+  text-shadow: 0 1px 0 rgba(235, 197, 144, 0.28);
+  font-family: 'EB Garamond', serif;
+}
+
+.topbar-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbar-actions button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  margin-left: 0;
+  cursor: pointer;
+  color: #fff8ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.topbar-actions button:hover {
+  color: #ebc590;
+  transform: translateY(-1px);
+}
+
+.topbar-actions button:active {
+  transform: translateY(0);
+}
+
+.icon-button {
+  width: 36px;
+  height: 36px;
+}
+
+.search-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-control input {
+  width: 0;
+  opacity: 0;
+  border: 1px solid #c9a87c;
+  border-radius: 999px;
+  background: #fff8ed;
+  color: #3d2500;
+  padding: 0;
+  font-family: inherit;
+  transition: width 0.2s ease, opacity 0.2s ease, padding 0.2s ease;
+}
+
+.search-control.is-open input {
+  width: 240px;
+  opacity: 1;
+  padding: 9px 14px;
+  font-size: 16px;
+}
+
+.carrito-toggle {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -9px;
+  right: -10px;
+  min-width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bold;
+  background: #a88a5a;
+  color: #ffffff;
+  border-radius: 999px;
+  line-height: 0;
+  text-shadow: 0 0 1px #000, 0 0 5px #000;
+}

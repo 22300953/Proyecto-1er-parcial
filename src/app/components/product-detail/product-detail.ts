@@ -1,19 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Product } from '../../models/product.model';
-import { CartComponent } from '../cart/cart';
 import { CartService } from '../../services/cart.service';
 import { ProductsService } from '../../services/product.service';
+import { ProductCardComponent } from '../product/product';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, CartComponent],
+  imports: [CommonModule, RouterLink, ProductCardComponent],
   templateUrl: './product-detail.html',
   styleUrls: ['./product-detail.css'],
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly productsService = inject(ProductsService);
   private readonly cartService = inject(CartService);
@@ -21,10 +21,43 @@ export class ProductDetailComponent implements OnInit {
   product = signal<Product | null>(null);
   loading = signal(true);
   error = signal('');
+  quantity = signal(1);
+  addedFeedback = signal(false);
+  relatedProducts = signal<Product[]>([]);
+
+  portions = computed(() => {
+    const desc = this.product()?.description ?? '';
+    const match = desc.match(/\b\d+\s*(porciones?|piezas?)\b/i);
+    return match ? match[0] : null;
+  });
+
+  descriptionText = computed(() => {
+    const desc = this.product()?.description ?? '';
+    return desc.replace(/\b\d+\s*(porciones?|piezas?)\b/gi, '').trim();
+  });
+
+  private feedbackTimeout: ReturnType<typeof setTimeout> | null = null;
 
   ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('id') ?? '';
-    const id = Number(idParam);
+    this.route.paramMap.subscribe((params) => {
+      const idParam = params.get('id') ?? '';
+      const id = Number(idParam);
+      this.loadProduct(id);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.feedbackTimeout) {
+      clearTimeout(this.feedbackTimeout);
+    }
+  }
+
+  private loadProduct(id: number): void {
+    this.loading.set(true);
+    this.error.set('');
+    this.product.set(null);
+    this.relatedProducts.set([]);
+    this.quantity.set(1);
 
     if (!Number.isFinite(id) || id <= 0) {
       this.error.set('ID de producto inválido.');
@@ -32,12 +65,18 @@ export class ProductDetailComponent implements OnInit {
       return;
     }
 
-    this.productsService.getProductById(id).subscribe({
-      next: (product) => {
-        if (!product) {
+    this.productsService.getProducts().subscribe({
+      next: (products) => {
+        const found = products.find((p) => p.id === id) ?? null;
+        if (!found) {
           this.error.set('Producto no encontrado.');
+          this.loading.set(false);
+          return;
         }
-        this.product.set(product);
+        this.product.set(found);
+        this.relatedProducts.set(
+          products.filter((p) => p.category === found.category && p.id !== found.id).slice(0, 4)
+        );
         this.loading.set(false);
       },
       error: (err: unknown) => {
@@ -48,26 +87,44 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  addToCart(): void {
-    const currentProduct = this.product();
-    if (currentProduct) {
-      this.cartService.agregar(currentProduct);
+  decrement(): void {
+    this.quantity.update((q) => Math.max(1, q - 1));
+  }
+
+  increment(): void {
+    this.quantity.update((q) => Math.min(99, q + 1));
+  }
+
+  onQuantityInput(event: Event): void {
+    const value = Number((event.target as HTMLInputElement).value);
+    if (Number.isFinite(value) && value >= 1) {
+      this.quantity.set(Math.min(99, Math.floor(value)));
+    } else {
+      this.quantity.set(1);
     }
   }
 
-  toggleCart() {
-    this.cartService.toggleCart();
+  addToCart(): void {
+    const currentProduct = this.product();
+    if (!currentProduct) return;
+    const n = this.quantity();
+    for (let i = 0; i < n; i++) {
+      this.cartService.agregar(currentProduct);
+    }
+
+    this.addedFeedback.set(true);
+    if (this.feedbackTimeout) clearTimeout(this.feedbackTimeout);
+    this.feedbackTimeout = setTimeout(() => {
+      this.addedFeedback.set(false);
+      this.feedbackTimeout = null;
+    }, 2000);
   }
 
-  cartIsOpen() {
-    return this.cartService.isCartOpen();
+  addRelatedToCart(product: Product): void {
+    this.cartService.agregar(product);
   }
 
-  countItems() {
-    return this.cartService.countItems();
-  }
-
-  logOut() {
-    console.info('La acción de cerrar sesión todavía no está implementada.');
+  onImageError(event: Event): void {
+    (event.target as HTMLImageElement).src = '/assets/logo.png';
   }
 }

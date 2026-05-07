@@ -1,57 +1,91 @@
-<header class="topbar">
-  <div class="brand">
-    <img src="/assets/logo.png" alt="Logo" />
-    <h1>Backed Bliss</h1>
-  </div>
-  <div class="topbar-actions">
-    <button
-      type="button"
-      class="carrito-toggle"
-      (click)="toggleCart()"
-      [attr.aria-expanded]="cartIsOpen()"
-      aria-controls="panel-cart"
-    >
-      Carrito ({{ countItems() }})
-    </button>
-    <app-cart></app-cart>
-    <button type="button" (click)="logOut()">Cerrar sesión</button>
-  </div>
-</header>
-
-<header class="header"></header>
-
 <section class="product-detail-page">
-  <nav class="breadcrumb">
-    <a routerLink="/">Inicio</a>
-    <span>›</span>
-    <a routerLink="/">Catálogo</a>
-    <span>›</span>
-    <span>{{ product()?.name || 'Detalle del producto' }}</span>
-  </nav>
+  <div class="container">
+    <nav class="breadcrumb">
+      <a routerLink="/">Inicio</a>
+      <span>›</span>
+      <a routerLink="/">Catálogo</a>
+      <span>›</span>
+      <span>{{ product()?.name || 'Detalle del producto' }}</span>
+    </nav>
 
-  @if (loading()) {
-    <p class="status">Cargando producto...</p>
-  } @else if (error()) {
-    <p class="status status--error">{{ error() }}</p>
-  } @else if (product()) {
-    <article class="detail-card">
-      <div class="image-column">
-        <img class="detail-img" [src]="product()!.imageUrl" [alt]="product()!.name" />
+    @if (loading()) {
+      <div class="detail-card skeleton-card">
+        <div class="skeleton skeleton-img"></div>
+        <div class="skeleton-info">
+          <div class="skeleton skeleton-line skeleton-title"></div>
+          <div class="skeleton skeleton-line skeleton-chip"></div>
+          <div class="skeleton skeleton-line skeleton-price"></div>
+          <div class="skeleton skeleton-line"></div>
+          <div class="skeleton skeleton-line"></div>
+          <div class="skeleton skeleton-line skeleton-short"></div>
+          <div class="skeleton skeleton-line skeleton-button"></div>
+        </div>
       </div>
-
-      <div class="info-column">
-        <h1>{{ product()!.name }}</h1>
-        <p class="category">Categoría: {{ product()!.category }}</p>
-        <p class="price">Precio: $ {{ product()!.price }} <small>IVA incluido</small></p>
-        <p class="stock" [class.out]="!product()!.inStock">
-          @if (product()!.inStock) { Disponible } @else { Agotado }
-        </p>
-        <p class="description">{{ product()!.description }}</p>
-
-        <button class="btn" [disabled]="!product()!.inStock" (click)="addToCart()">
-          Agregar al carrito
-        </button>
+    } @else if (error()) {
+      <div class="status status--error">
+        <p>{{ error() }}</p>
+        <a class="btn btn--secondary" routerLink="/">Volver al catálogo</a>
       </div>
-    </article>
-  }
+    } @else if (product(); as p) {
+      <article class="detail-card">
+        <div class="image-column">
+          <span class="category-chip">{{ p.category }}</span>
+          <img class="detail-img" [src]="p.imageUrl" [alt]="p.name" (error)="onImageError($event)" />
+        </div>
+
+        <div class="info-column">
+          <h1>{{ p.name }}</h1>
+
+          <div class="badges">
+            <span class="badge badge--stock" [class.out]="!p.inStock">
+              @if (p.inStock) { Disponible } @else { Agotado }
+            </span>
+            @if (portions()) {
+              <span class="badge badge--info">{{ portions() }}</span>
+            }
+          </div>
+
+          <div class="price-block">
+            <span class="price">$ {{ p.price }}</span>
+            <small>IVA incluido</small>
+          </div>
+
+          @if (descriptionText()) {
+            <p class="description">{{ descriptionText() }}</p>
+          }
+
+          <div class="quantity-row">
+            <label>Cantidad</label>
+            <div class="quantity-selector">
+              <button type="button" (click)="decrement()" [disabled]="quantity() <= 1" aria-label="Disminuir">−</button>
+              <input type="number" min="1" max="99" [value]="quantity()" (input)="onQuantityInput($event)" />
+              <button type="button" (click)="increment()" [disabled]="quantity() >= 99" aria-label="Aumentar">+</button>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn--primary" [disabled]="!p.inStock" (click)="addToCart()">
+              Agregar al carrito
+            </button>
+            <a class="btn btn--secondary" routerLink="/">Seguir comprando</a>
+          </div>
+
+          @if (addedFeedback()) {
+            <p class="added-feedback">Agregado al carrito ✓</p>
+          }
+        </div>
+      </article>
+
+      @if (relatedProducts().length > 0) {
+        <section class="related">
+          <h2>También te puede gustar</h2>
+          <div class="related-grid">
+            @for (rp of relatedProducts(); track rp.id) {
+              <app-product-card [product]="rp" (add)="addRelatedToCart($event)"></app-product-card>
+            }
+          </div>
+        </section>
+      }
+    }
+  </div>
 </section>

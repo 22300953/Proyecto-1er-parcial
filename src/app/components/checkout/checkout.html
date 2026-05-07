@@ -1,31 +1,59 @@
-<header class="topbar">
-  <div class="brand">
-    <img src="/assets/logo.png" alt="Logo" />
-    <h1>Backed Bliss</h1>
-  </div>
-  <div class="topbar-actions">
-    <button type="button" (click)="goBack()">Volver</button>
-  </div>
-</header>
+<div class="checkout-page">
+	<a class="back-link" routerLink="/">&larr; Volver al catálogo</a>
 
-<section class="checkout">
-	<h2>Resumen de tu pedido</h2>
+	<article class="checkout-card">
+		<header class="checkout-header">
+			<h2>Resumen de tu pedido</h2>
+			<p class="checkout-subtitle" *ngIf="products.length > 0">
+				{{ uniqueCount }} {{ uniqueCount === 1 ? 'producto' : 'productos' }}
+				·
+				{{ itemCount }} {{ itemCount === 1 ? 'unidad' : 'unidades' }} en total
+			</p>
+		</header>
 
-	<div *ngIf="products.length === 0">No hay artículos en el carrito.</div>
+	<div *ngIf="products.length === 0" class="empty">
+		<p>No hay artículos en el carrito.</p>
+		<a class="empty-cta" routerLink="/">Ir al catálogo</a>
+	</div>
 
 	<ul *ngIf="products.length > 0" class="items">
 		<li *ngFor="let g of (groupProducts() || [])">
-			<div class="item-name">{{ g.name }}</div>
+			<div class="item-thumb">
+				<img *ngIf="g.imageUrl" [src]="g.imageUrl" [alt]="g.name" />
+				<div *ngIf="!g.imageUrl" class="thumb-placeholder">🍪</div>
+			</div>
+			<div class="item-info">
+				<div class="item-name">{{ g.name }}</div>
+				<div class="item-meta" *ngIf="g.category">{{ g.category }}</div>
+				<div class="item-unit">${{ g.price.toFixed(2) }} c/u</div>
+			</div>
 			<div class="item-qty">x{{ g.quantity }}</div>
-			<div class="item-price">${{ g.subtotal.toFixed(2) }} <small>IVA incluido</small></div>
+			<div class="item-price">
+				${{ g.subtotal.toFixed(2) }}
+				<small>IVA incluido</small>
+			</div>
 		</li>
 	</ul>
 
-	<div class="total">Total: ${{ total.toFixed(2) }} <small>IVA incluido</small></div>
+	<div *ngIf="products.length > 0" class="totals">
+		<div class="totals-row">
+			<span>Subtotal</span>
+			<span>${{ total.toFixed(2) }}</span>
+		</div>
+		<div class="totals-row muted">
+			<span>Envío</span>
+			<span>A calcular</span>
+		</div>
+		<div class="totals-row total">
+			<span>Total</span>
+			<span>${{ total.toFixed(2) }} <small>IVA incluido</small></span>
+		</div>
+	</div>
 
 	<div id="paypal-button-container" class="paypal-container"></div>
 
 	<div *ngIf="loading()" class="status">Procesando...</div>
 	<div *ngIf="success()" class="status success">Pago realizado con éxito. Gracias.</div>
 	<div *ngIf="error()" class="status error">{{ error() }}</div>
-</section>
+	</article>
+</div>

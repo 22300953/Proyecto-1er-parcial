@@ -4,14 +4,15 @@ import { inject, PLATFORM_ID } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { SearchService } from '../../services/search.service';
 import { ProductCardComponent } from '../product/product';
-import { CartComponent } from '../cart/cart';
 import { FilterMenuComponent, FilterKey } from '../filter-menu/filter-menu';
+import { CarouselComponent } from '../carousel/carousel';
 
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [ProductCardComponent, CartComponent, FilterMenuComponent],
+  imports: [ProductCardComponent, FilterMenuComponent, CarouselComponent],
   templateUrl: './catalog.html',
   styleUrls: ['./catalog.css'],
 })
@@ -19,18 +20,32 @@ export class CatalogComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly productsService = inject(ProductsService);
   private readonly cartService = inject(CartService);
+  private readonly searchService = inject(SearchService);
   products = signal<Product[]>([]);
   selectedFilter = signal<FilterKey>('todos');
   inStockCount = computed(() => this.products().filter(p => p.inStock).length);
   filteredProducts = computed(() => {
     const filter = this.selectedFilter();
-    const list = this.products();
+    const query = this.searchService.query().trim().toLowerCase();
+    let list = this.products();
 
-    if (filter === 'todos') {
+    if (filter !== 'todos') {
+      list = list.filter(product => this.matchesFilter(product.category, filter));
+    }
+
+    if (!query) {
       return list;
     }
 
-    return list.filter(product => this.matchesFilter(product.category, filter));
+    return list.filter(product => {
+      const searchableText = [
+        product.name,
+        product.category,
+        product.description,
+      ].join(' ').toLowerCase();
+
+      return searchableText.includes(query);
+    });
   });
 
   ngOnInit(): void {
@@ -49,22 +64,6 @@ export class CatalogComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.agregar(product);
-  }
-
-  toggleCart() {
-    this.cartService.toggleCart();
-  }
-
-  cartIsOpen() {
-    return this.cartService.isCartOpen();
-  }
-
-  countItems() {
-    return this.cartService.countItems();
-  }
-
-  logOut() {
-    console.info('La acción de cerrar sesión todavía no está implementada.');
   }
 
   onFilterChange(filter: FilterKey) {

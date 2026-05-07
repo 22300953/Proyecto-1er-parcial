@@ -1,0 +1,62 @@
+<header class="topbar" [class.is-minimal]="isMinimal()">
+  <div class="topbar-inner">
+    @if (isMinimal()) {
+      <a routerLink="/" class="brand">
+        <img src="/assets/logo.png" alt="Logo" />
+        <h1>Backed Bliss</h1>
+      </a>
+    } @else {
+      <a routerLink="/" class="brand">
+        <img src="/assets/logo.png" alt="Logo" />
+        <h1>Backed Bliss</h1>
+      </a>
+      <div class="topbar-actions">
+        <div class="search-control" [class.is-open]="searchIsOpen()">
+          @if (searchIsOpen()) {
+            <input
+              type="search"
+              placeholder="Buscar productos"
+              [value]="searchQuery()"
+              (input)="updateSearch($event)"
+              aria-label="Buscar productos"
+            />
+          }
+          <button
+            type="button"
+            class="icon-button"
+            (click)="toggleSearch()"
+            [attr.aria-expanded]="searchIsOpen()"
+            aria-label="Buscar productos"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10.5" cy="10.5" r="6.5"></circle>
+              <line x1="15.5" y1="15.5" x2="21" y2="21"></line>
+            </svg>
+          </button>
+        </div>
+        <button type="button" class="icon-button" (click)="logOut()" aria-label="Cerrar sesión">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="3.5"></circle>
+            <path d="M5 21a7 7 0 0 1 14 0"></path>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="icon-button carrito-toggle"
+          (click)="toggleCart()"
+          [attr.aria-expanded]="cartIsOpen()"
+          aria-controls="panel-cart"
+          aria-label="Carrito ({{ countItems() }})"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="20" r="1.5"></circle>
+            <circle cx="18" cy="20" r="1.5"></circle>
+            <path d="M2 3h3l2.4 11.5a2 2 0 0 0 2 1.5h7.8a2 2 0 0 0 1.9-1.4L21 7H6"></path>
+          </svg>
+          <span class="cart-count">{{ countItems() }}</span>
+        </button>
+        <app-cart></app-cart>
+      </div>
+    }
+  </div>
+</header>

@@ -1,0 +1,45 @@
+<div class="carousel-container">
+  <div
+    class="carousel-frame"
+    (mouseenter)="pauseAutoplay()"
+    (mouseleave)="resumeAutoplay()"
+  >
+    <div class="carousel-track" [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'">
+      @for (slide of slides; track slide.src) {
+        <div class="carousel-slide">
+          <img [src]="slide.src" [alt]="slide.title" />
+          <div class="carousel-overlay"></div>
+          <div class="carousel-caption">
+            <h3>{{ slide.title }}</h3>
+            @if (slide.subtitle) {
+              <p>{{ slide.subtitle }}</p>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <button class="carousel-button prev" (click)="previous()" aria-label="Anterior">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    <button class="carousel-button next" (click)="next()" aria-label="Siguiente">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+
+    <div class="carousel-dots">
+      @for (slide of slides; track slide.src; let i = $index) {
+        <button
+          class="carousel-dot"
+          [class.active]="i === currentIndex()"
+          (click)="goTo(i)"
+          [attr.aria-label]="'Ir a imagen ' + (i + 1)"
+        ></button>
+      }
+    </div>
+  </div>
+</div>

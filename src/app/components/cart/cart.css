@@ -48,7 +48,7 @@
 .close-cart {
   border: 1px solid #ad8458;
   background: #fff1de;
-  border-radius: 8px;
+  border-radius: 4px;
   width: 32px;
   height: 32px;
   line-height: 1;
@@ -112,7 +112,7 @@
   border: 1px solid #b35c44;
   color: #6b1d0f;
   background: #fde7e1;
-  border-radius: 8px;
+  border-radius: 4px;
   width: 28px;
   height: 28px;
   font-weight: 700;
@@ -129,7 +129,7 @@
   border: 1px solid #b35c44;
   color: #6b1d0f;
   background: #fde7e1;
-  border-radius: 8px;
+  border-radius: 4px;
   width: 28px;
   height: 28px;
   font-weight: 700;
@@ -209,7 +209,7 @@
   border: 1px solid #8c5b2d;
   background: #ebc590;
   color: #3d2500;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 10px;
   font-weight: 700;
   cursor: pointer;

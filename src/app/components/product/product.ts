@@ -15,6 +15,15 @@ export class ProductCardComponent {
   recentlyAdded = signal(false);
   private feedbackTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
+  get portions(): string | null {
+    const match = this.product?.description?.match(/\b\d+\s*(porciones?|piezas?)\b/i);
+    return match ? match[0] : null;
+  }
+
+  get descriptionWithoutPortions(): string {
+    return this.product?.description?.replace(/\b\d+\s*(porciones?|piezas?)\b/gi, '').trim() || '';
+  }
+
   onAdd() {
     this.recentlyAdded.set(true);
     if (this.feedbackTimeoutId) {

@@ -1,6 +1,6 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { PaymentService, CreatePaypalOrderPayload } from '../../services/payment.service';
 import { lastValueFrom } from 'rxjs';
@@ -9,7 +9,7 @@ import { Inject } from '@angular/core';
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.css'],
 })
@@ -38,6 +38,14 @@ export class Checkout implements OnInit {
     return this.cartService.total();
   }
 
+  get itemCount() {
+    return this.cartService.products().length;
+  }
+
+  get uniqueCount() {
+    return this.groupProducts().length;
+  }
+
   groupProducts() {
     const products = this.cartService.products();
     const map = new Map<number, any>();
@@ -53,6 +61,8 @@ export class Checkout implements OnInit {
       map.set(p.id, {
         id: p.id,
         name: p.name,
+        imageUrl: (p as any).imageUrl,
+        category: (p as any).category,
         quantity: 1,
         price: p.price,
         subtotal: p.price,
