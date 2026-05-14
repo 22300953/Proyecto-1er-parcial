@@ -57,6 +57,7 @@
 }
 
 .carousel-caption {
+  display: none;
   position: absolute;
   left: clamp(32px, 8vw, 120px);
   right: clamp(32px, 8vw, 120px);

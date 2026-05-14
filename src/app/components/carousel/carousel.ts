@@ -15,13 +15,13 @@ interface Slide {
 export class CarouselComponent implements OnInit, OnDestroy {
   currentIndex = signal(0);
   slides: Slide[] = [
-    { src: '/assets/pastel1.jpeg', title: 'Pasteles artesanales', subtitle: 'Hechos a mano cada mañana' },
-    { src: '/assets/pastel2.jpeg', title: 'Sabores que enamoran', subtitle: 'Recetas tradicionales con un toque moderno' },
-    { src: '/assets/pastel3.jpeg', title: 'Para cada ocasión', subtitle: 'Cumpleaños, bodas y momentos especiales' },
-    { src: '/assets/pastel4.jpeg', title: 'Ingredientes premium', subtitle: 'Calidad en cada bocado' },
-    { src: '/assets/pastel5.jpeg', title: 'Diseños únicos', subtitle: 'Personalizamos tu pastel ideal' },
-    { src: '/assets/chocoflan.webp', title: 'Chocoflan', subtitle: 'El clásico irresistible' },
-    { src: '/assets/chocofresa.png', title: 'Choco fresa', subtitle: 'Una combinación perfecta' },
+    { src: '/assets/carrusel_1.png', title: 'Pasteles artesanales', subtitle: 'Hechos a mano cada mañana' },
+    { src: '/assets/carrusel_2.png', title: 'Sabores que enamoran', subtitle: 'Recetas tradicionales con un toque moderno' },
+    { src: '/assets/carrusel_3.png', title: 'Para cada ocasión', subtitle: 'Cumpleaños, bodas y momentos especiales' },
+    { src: '/assets/carrusel_4.png', title: 'Ingredientes premium', subtitle: 'Calidad en cada bocado' },
+    { src: '/assets/carrusel_5.png', title: 'Diseños únicos', subtitle: 'Personalizamos tu pastel ideal' },
+    { src: '/assets/carrusel_6.png', title: 'Chocoflan', subtitle: 'El clásico irresistible' },
+    { src: '/assets/carrusel_7.png', title: 'Choco fresa', subtitle: 'Una combinación perfecta' },
   ];
 
   private intervalId: ReturnType<typeof setInterval> | null = null;

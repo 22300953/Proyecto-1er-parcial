@@ -1,7 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 const TITLES: Record<string, string> = {
   terminos: 'Términos y Condiciones',
@@ -59,11 +60,12 @@ function mdToHtml(md: string): string {
   templateUrl: './legal.html',
   styleUrls: ['./legal.css'],
 })
-export class LegalComponent implements OnInit {
+export class LegalComponent implements OnInit, OnDestroy {
   title = signal('');
   contentHtml = signal<SafeHtml | null>(null);
   loading = signal(true);
   error = signal(false);
+  private paramSub!: Subscription;
 
   constructor(
     private http: HttpClient,
@@ -72,21 +74,29 @@ export class LegalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const docType = this.route.snapshot.params['docType'] ?? 'terminos';
-    const docName = docType === 'privacidad' ? 'aviso-de-privacidad' : 'terminos-y-condiciones';
-    this.title.set(TITLES[docType] ?? 'Documento Legal');
+    this.paramSub = this.route.params.subscribe((params) => {
+      const docType = params['docType'] ?? 'terminos';
+      const docName = docType === 'privacidad' ? 'aviso-de-privacidad' : 'terminos-y-condiciones';
+      this.title.set(TITLES[docType] ?? 'Documento Legal');
+      this.loading.set(true);
+      this.error.set(false);
 
-    this.http.get(`/legal/${docName}.md`, { responseType: 'text' })
-      .subscribe({
-        next: (text) => {
-          const html = mdToHtml(text);
-          this.contentHtml.set(this.sanitizer.bypassSecurityTrustHtml(html));
-          this.loading.set(false);
-        },
-        error: () => {
-          this.error.set(true);
-          this.loading.set(false);
-        }
-      });
+      this.http.get(`/legal/${docName}.md`, { responseType: 'text' })
+        .subscribe({
+          next: (text) => {
+            const html = mdToHtml(text);
+            this.contentHtml.set(this.sanitizer.bypassSecurityTrustHtml(html));
+            this.loading.set(false);
+          },
+          error: () => {
+            this.error.set(true);
+            this.loading.set(false);
+          }
+        });
+    });
+  }
+
+  ngOnDestroy() {
+    this.paramSub?.unsubscribe();
   }
 }
